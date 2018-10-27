@@ -15,7 +15,7 @@
   a quick bit of code to get periodic weather data from BOM
   (Australian Bureau of Meteorology).
  
-      read more about the BOM here <<http://www.bom.gov.au/inside/index.shtml>>
+      read more about the BOM here <http://www.bom.gov.au/inside/index.shtml>
       this is version 0.1
 
       add a cron job: every half hour/forty five minutes wit a cron script
@@ -28,7 +28,7 @@
 * WSD (Weather Station Data)
     
       for example this Melbourne Airport data
-      <<http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json>>
+      <http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json>
 
 
 * usage: 
