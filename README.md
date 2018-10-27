@@ -1,13 +1,13 @@
 
- _      __ ____ ___ 
-| | /| / // __// _ \
-| |/ |/ /_\ \ / // /
-|__/|__//___//____/ 
+  _      __ ____ ___ 
+ | | /| / // __// _ \
+ | |/ |/ /_\ \ / // /
+ |__/|__//___//____/ 
                                                             
- _      __            __   __           
-| | /| / /___  ___ _ / /_ / /  ___  ____
-| |/ |/ // -_)/ _ `// __// _ \/ -_)/ __/
-|__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
+  _      __            __   __           
+ | | /| / /___  ___ _ / /_ / /  ___  ____
+ | |/ |/ // -_)/ _ `// __// _ \/ -_)/ __/
+ |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 
 2018OCT27
@@ -20,8 +20,11 @@
 
 * usage: 
        new JSON configuration data file
+       
            ./ws.py -n -t 'melbourne airport' -f "json" -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
+           
        get (weather data using config file)
+       
            ./ws.py -g
 
        debug
@@ -33,4 +36,4 @@
 * started 2018OCT271200
 
 
-# vim: ff=unix:ts=4:sw=4:tw=78:noai:expandtab
+vim: ff=unix:ts=4:sw=4:tw=78:noai:expandtab
