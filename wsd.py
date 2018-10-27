@@ -44,8 +44,10 @@ from requests import get
 
 
 VERSION = "0.1"
-PROG_NAME = "WEATHER GET"
-DEST_PATH = "/Users/pr/work/code/py/weather"
+PROG_NAME = "WEATHER STATION DATA"
+BASE_PATH = "/Users/pr/work/code/"
+CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
+DEST_PATH = os.path.join(BASE_PATH, "d3/data")
 CONF_DATA_FILE = 'config.json'
 WEATHER_DATA_FILE = 'latest-weather'
 
@@ -69,7 +71,7 @@ def main():
         print("{} v{}.".format(PROG_NAME, VERSION))
         print("debug on")
 
-    cdfpn = os.path.join(DEST_PATH, CONF_DATA_FILE)
+    cdfpn = os.path.join(CODE_PATH, CONF_DATA_FILE)
     wdfpn = os.path.join(DEST_PATH, WEATHER_DATA_FILE)
     if options.debug:
         print("save config to <{}>".format(cdfpn))
