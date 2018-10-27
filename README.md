@@ -21,6 +21,10 @@
 - could use the RSS/HTML but I want specific files from individual 
   weather stations to play with.
 
+* WSD (Weather Station Data)
+- for example this Melbourne Airport data
+- <http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json>
+
 * usage: 
        new JSON configuration data file
        
