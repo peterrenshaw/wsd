@@ -14,7 +14,7 @@
 * need some periodic useful data to play with D3, so I hacked 
   a quick bit of code to get periodic weather data from BOM
   (Australian Bureau of Meteorology).
-  
+- read more about the BOM here <http://www.bom.gov.au/inside/index.shtml>
 - version 0.1
 - use cron every half hour/forty five minutes wit a cron script
   that calls ./wsd.py -g
