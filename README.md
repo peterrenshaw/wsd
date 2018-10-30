@@ -11,12 +11,31 @@
 
 
 2018OCT30
-* bugger: needed to simplify the downloaded JSON from a 
-  complex structure to a linear list. 
+* bugger: needed to simplify the downloaded JSON from a complex structure to a linear list. 
 
 * created a new json file from latest-weather.json to yyyymmmddThh.json
+  using ./ws.py -e command. saves to destination directory for usage.
 
 * it is a simplified version of the downloaded file 
+
+* usage: 
+
+       new JSON configuration data file
+           ./ws.py -n -t 'melbourne airport' 
+                      -f "json" 
+                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
+           
+       get (weather data using config file)
+           ./ws.py -g
+
+       extract (simplify weather data)
+           ./ws.py -e 
+
+       debug
+           ./ws.py -d
+       help
+           ./ws.py -h
+
 
 
 2018OCT27
@@ -51,6 +70,9 @@
        get (weather data using config file)
        
            ./ws.py -g
+
+       extract (simplify weather data)
+           ./ws.py -e 
 
        debug
            ./ws.py -d

@@ -64,7 +64,7 @@ VERSION = "0.1"
 PROG_NAME = "WEATHER STATION DATA (WSD)"
 BASE_PATH = "/Users/pr/work/code/"
 CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
-DEST_PATH = os.path.join(BASE_PATH, "py/wsd") #"d3/data")  TODO: save to argument directory
+DEST_PATH = os.path.join(BASE_PATH, "py/wsd") #"d3/data")  TODO: optional save to argument directory
 CONF_DATA_FILE = 'config.json'
 WEATHER_DATA_FILE = 'latest-weather.json'
     
