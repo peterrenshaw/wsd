@@ -10,6 +10,15 @@
     |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 
+2018OCT30
+* bugger: needed to simplify the downloaded JSON from a 
+  complex structure to a linear list. 
+
+* created a new json file from latest-weather.json to yyyymmmddThh.json
+
+* it is a simplified version of the downloaded file 
+
+
 2018OCT27
 * need some periodic useful data to play with D3, so I hacked 
   a quick bit of code to get periodic weather data from BOM
