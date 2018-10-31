@@ -68,7 +68,7 @@ import requests  # pip3 import requests
 from requests import get
 
 
-VERSION = "0.1"
+VERSION = "0.2"
 PROG_NAME = "WEATHER STATION DATA (WSD)"
 BASE_PATH = "/Users/pr/work/code/"
 CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
@@ -81,10 +81,17 @@ CDFPN = os.path.join(CODE_PATH, CONF_DATA_FILE)
 WDFPN = os.path.join(DEST_PATH, WEATHER_DATA_ALL_FN)
 
 
-# TODO: fix this, should do one thing only
 #--------
 # get_config: load config data given filepath, 
 #             return format, filename and url to extract
+# 
+#             WARNING: convenince methods call this
+#                      function. if you want more than
+#                      bit of config use this method.
+#           
+#             * want all the config info? use this method. 
+#             * want only URL? use get_config_url
+# 
 #--------
 def get_config(filepathname=CDFPN, debug=False):
     """
@@ -94,7 +101,8 @@ def get_config(filepathname=CDFPN, debug=False):
     # convert from JSON
     with open(filepathname, 'r') as f:
          data = json.load(f)
-      
+    f.close()
+ 
     if debug:
         print("load data...")
         print("key:\tvalue")
@@ -104,11 +112,14 @@ def get_config(filepathname=CDFPN, debug=False):
 
     # lets download resource file
     url = data['url']
-    #title = data['title']
-    #data_format = data['format']
+    title = data['title']
+    data_format = data['format']
    
-    return url
-          
+    return ['url': url, 'title': title, 'format': data_format}
+def get_config_url(fpn=CDFPN, debug=False):
+    """convenince method for get_config"""
+    url = get_config(fpn, debug)['url']
+    return url        
 
 #======
 # main: cli entry point
@@ -140,7 +151,7 @@ def main():
         if os.path.isfile(CDFPN):
 
             # get weather data url...
-            url = get_config(debug=options.debug)
+            url = get_config_url(debug=options.debug)
 
             # request a copy of the url file, 
             # save to file so we can use it.
