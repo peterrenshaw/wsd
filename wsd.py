@@ -121,6 +121,7 @@ def get_config_url(fpn=CDFPN, debug=False):
     url = get_config(fpn, debug)['url']
     return url        
 
+
 #======
 # main: cli entry point
 #======
