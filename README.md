@@ -10,6 +10,48 @@
     |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 
+2018OCT31
+* minor update to make filename with date optional and replace with default until directed. 
+
+* makes easier to have the same filename when calling from D3 code.
+
+* changes to data filenames: allow to give unique yyyymmddThh filename and specific filename via -r option
+
+* usage: 
+
+       # BUILD A NEW CONFIGURATION FILE
+       # only do this once, or as needed.
+       new JSON configuration data file
+           ./ws.py -n -t 'melbourne airport' 
+                      -f "json" 
+                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
+           
+       # GET LATEST WEATHER 
+       # reads config file, gets the latest readings
+       get (weather data using config file)
+           ./ws.py -g
+
+       # EXTRACT 
+       # simplified subset of full report 
+       extract (simplify weather data)
+           ./ws.py -e 
+
+       # RENAME
+       # instead of generic file, create a unique simplified data file
+       # with filename reflecting time created.
+       rename (rename file to yyyymmmdd, else static fn)
+           ./ws.py -r 
+
+       # DEBUG
+       # show some internal data states while operating
+       debug
+           ./ws.py -d
+
+       help
+           ./ws.py -h
+
+
+
 2018OCT30
 * bugger: needed to simplify the downloaded JSON from a complex structure to a linear list. 
 
@@ -35,7 +77,6 @@
            ./ws.py -d
        help
            ./ws.py -h
-
 
 
 2018OCT27

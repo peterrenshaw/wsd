@@ -7,7 +7,13 @@
 # date: 2018OCT30
 #       2018OCT27
 # prog: pr
-# desc: grab your local BOM data save to file.
+# desc: grab your local BOM data & save to file, simplify data if needed
+#       save as json to new (web) directory for use.
+# 
+#       2018OCT31
+#       for extracted weather data: minor update to make unique filename
+#       with date optional & replace with default until directed. 
+#       Makes easier to have the same filename when calling from D3 code.
 #
 #       2018OCT30: 
 #       A lost day. bugger: the file is so complex I'm having problems 
@@ -39,6 +45,8 @@
 #           ./ws.py -g
 #       extract
 #           ./ws.py -e 
+#       rename
+#           ./ws.py -e -r 
 #
 #       debug
 #           ./ws.py -d
@@ -64,19 +72,19 @@ VERSION = "0.1"
 PROG_NAME = "WEATHER STATION DATA (WSD)"
 BASE_PATH = "/Users/pr/work/code/"
 CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
-DEST_PATH = os.path.join(BASE_PATH, "py/wsd") #"d3/data")  TODO: optional save to argument directory
+DEST_PATH = os.path.join(BASE_PATH, "d3/data")  #TODO: optional save to argument directory
 CONF_DATA_FILE = 'config.json'
-WEATHER_DATA_FILE = 'latest-weather.json'
+WEATHER_DATA_ALL_FN = 'latest-full-weather.json'
+WEATHER_DATA_SIMPLE_FN = 'latest-simple-weather.json'
     
 CDFPN = os.path.join(CODE_PATH, CONF_DATA_FILE)
-WDFPN = os.path.join(DEST_PATH, WEATHER_DATA_FILE)
+WDFPN = os.path.join(DEST_PATH, WEATHER_DATA_ALL_FN)
 
 
 # TODO: fix this, should do one thing only
 #--------
-# build_config_fn: load config data given filepath, 
-#                  build filename with correct ext.
-#                  return filename and url to extract
+# get_config: load config data given filepath, 
+#             return format, filename and url to extract
 #--------
 def get_config(filepathname=CDFPN, debug=False):
     """
@@ -99,7 +107,8 @@ def get_config(filepathname=CDFPN, debug=False):
     #title = data['title']
     #data_format = data['format']
    
-    return url             
+    return url
+          
 
 #======
 # main: cli entry point
@@ -114,6 +123,7 @@ def main():
     parser.add_option("-t", "--title", dest="title", help="name of weather location")
     parser.add_option("-g", "--get", dest="get", action="store_true", help="get lastest data")
     parser.add_option("-e", "--extract", dest="extract",  action="store_true", help="extract the good bits")
+    parser.add_option("-r", "--rename", dest="rename", action="store_true", help="rename the extracted file to ^yyymmmddThh^ format")
     options, args = parser.parse_args()
 
 
@@ -226,6 +236,10 @@ def main():
             # data extraction:
             #     placeholder for data extraction.
             #-------
+            # looking at datetime
+            #for item in data:
+            #    if item:
+            #        if item['local_date_time_full']: print(item['local_date_time_full'])
 
 
             #--------
@@ -237,18 +251,30 @@ def main():
             d.append(head)        # header dict first
             for item in data:       
                 d.append(item)    # lots of data items follow
+
             #--------
 
  
             #--------
             # build file name:
+            #     SPECIFIC (-r, rename option. takes no options formats as yyyymmmddThh
             #     I want a filename that is unique to the hour. I don't care if
             #     it's overwritten, however it may/maynot represent the ^latest^ so 
-            #     remember the date as a string is in the output description
-
-            fs = time.strftime("%Y%b%dT%H")           # build filename from YYYY, MMM and 24HH
-            fn = "{}.{}".format(fs.upper(), 'json')   # hardcoded format, standardise to UC
-            fpn = os.path.join(DEST_PATH, fn)         # filepath with destination path
+            #     remember the date as a string is in the output description.
+            #     GENERIC (default)
+            #     uses generic name as this is easy to call when updating
+            #     using remote code
+            #
+            if options.rename: 
+                # build unique filename: YYYY, MMM, 'T' and 24HH
+                fn = time.strftime("%Y%b%dT%H")
+                fn = "{}.json".format(fn.upper())
+            else:
+                # different fn, dont overwrite detailed fn. 
+                # use default fn for simplified, extracted data
+                fn = WEATHER_DATA_SIMPLE_FN
+            # filepath with destination path           
+            fnp = os.path.join(DEST_PATH, fn)       
             #--------
 
             #---------
@@ -261,7 +287,7 @@ def main():
             #---------
 
             #save file
-            with open(fpn, 'w') as f:
+            with open(fnp, 'w') as f:
                 f.write(json_data)
             f.close()
 
