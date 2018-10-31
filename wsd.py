@@ -115,7 +115,7 @@ def get_config(filepathname=CDFPN, debug=False):
     title = data['title']
     data_format = data['format']
    
-    return ['url': url, 'title': title, 'format': data_format}
+    return {'url': url, 'title': title, 'format': data_format}
 def get_config_url(fpn=CDFPN, debug=False):
     """convenince method for get_config"""
     url = get_config(fpn, debug)['url']
