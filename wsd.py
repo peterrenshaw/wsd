@@ -147,7 +147,8 @@ def main():
             with open(WDFPN, "wb") as f:
                 response = get(url)
                 f.write(response.content)
-           
+            f.close()
+
             if options.debug:
                 print("saved:\t<{}>".format(wdfn))
         else:
@@ -180,6 +181,7 @@ def main():
                       ensure_ascii=False,
                       indent=4,
                       sort_keys=True)
+        f.close()
         sys.exit(0)
 
     elif options.extract:
@@ -266,7 +268,7 @@ def main():
             #     using remote code
             #
             if options.rename: 
-                # build unique filename: YYYY, MMM, 'T' and 24HH
+                # build unique filename: YYYY, MMM, DD, 'T' and 24HH
                 fn = time.strftime("%Y%b%dT%H")
                 fn = "{}.json".format(fn.upper())
             else:
@@ -274,7 +276,7 @@ def main():
                 # use default fn for simplified, extracted data
                 fn = WEATHER_DATA_SIMPLE_FN
             # filepath with destination path           
-            fnp = os.path.join(DEST_PATH, fn)       
+            fpn = os.path.join(DEST_PATH, fn)       
             #--------
 
             #---------
@@ -287,7 +289,7 @@ def main():
             #---------
 
             #save file
-            with open(fnp, 'w') as f:
+            with open(fpn, 'w') as f:
                 f.write(json_data)
             f.close()
 
