@@ -10,7 +10,15 @@
     |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 
+TODO
+* set up cron & document 
+
+
 2018OCT31
+* basic shell script to be called via cron
+
+* various little fixes
+
 * minor update to make filename with date optional and replace with default until directed. 
 
 * makes easier to have the same filename when calling from D3 code.

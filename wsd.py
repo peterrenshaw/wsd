@@ -259,13 +259,12 @@ def main():
             #--------
             # organise data:
             #     I want a simple list with a simple header and line items of
-            #     data. this makes thing simple in javascript by reducing
-            #     complexity.           
+            #     data. A simple array in JS, header info at first line, rest
+            #     of the data follows. Easy peasy. 
             d = []
             d.append(head)        # header dict first
             for item in data:       
                 d.append(item)    # lots of data items follow
-
             #--------
 
  
