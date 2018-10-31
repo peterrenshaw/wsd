@@ -15,6 +15,8 @@ TODO
 
 
 2018OCT31
+* shell uses ws.py -g then ws.py -e
+
 * basic shell script to be called via cron
 
 * various little fixes
