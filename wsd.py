@@ -275,6 +275,9 @@ def main():
             #-------
             kvd = []
             if options.simplify:
+                # TODO initialisation of these fields is dodgy, verify
+                # add these fields to the header so we don't have problem of 
+                # undefined. But we have to work with this on d3js side
                 key_simple = {'local_date_time_full': "0",'apparent_t': 0,'rel_hum': 0, 'sort_order': -1}
                 for key in key_simple:
                     head[key] = key_simple[key]
