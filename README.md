@@ -13,6 +13,57 @@
 TODO
 * set up cron & document 
 
+2018NOV01
+* Dates in JavaScript suck bad!
+
+* So I'm left with pre-processing the dates and while I'm at it, 
+  reduce the number of fields (supress) so the data is ONLY what
+  I need. At the moment this is:
+
+           * date in local time
+           * temperature
+
+* need to add a blank set of keys and blank values to avoid 'undefined'
+  when reading first record. is there a better way to do this? add a 
+  header? that's what got me in the first place.
+
+* usage:
+
+       # BUILD A NEW CONFIGURATION FILE
+       # only do this once, or as needed.
+       new JSON configuration data file
+           ./ws.py -n -t 'melbourne airport' 
+                      -f "json" 
+                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
+           
+       # GET LATEST WEATHER 
+       # reads config file, gets the latest readings
+       get (weather data using config file)
+           ./ws.py -g
+
+       # EXTRACT 
+       # simplified subset of full report 
+       extract (simplify weather data)
+           ./ws.py -e 
+
+       # SIMPLIFY
+       simplify (remove unwanted fields)
+           ./ws.py -s
+
+       # RENAME
+       # instead of generic file, create a unique simplified data file
+       # with filename reflecting time created.
+       rename (rename file to yyyymmmdd, else static fn)
+           ./ws.py -r 
+
+       # DEBUG
+       # show some internal data states while operating
+       debug
+           ./ws.py -d
+
+       help
+           ./ws.py -h
+
 
 2018OCT31
 * shell uses ws.py -g then ws.py -e

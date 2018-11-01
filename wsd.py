@@ -9,6 +9,20 @@
 # prog: pr
 # desc: grab your local BOM data & save to file, simplify data if needed
 #       save as json to new (web) directory for use.
+#
+#       2018NOV01
+#       Dates in JavaScript suck bad!
+# 
+#       So I'm left with pre-processing the dates and while I'm at it, 
+#       reduce the number of fields (supress) so the data is ONLY what
+#       I need. At the moment this is:
+#
+#           * date in local time
+#           * temperature
+#
+#       need to add a blank set of keys and blank values to avoid 'undefined'
+#       when reading first record. is there a better way to do this? add a 
+#       header? that's what got me in the first place. 
 # 
 #       2018OCT31
 #       for extracted weather data: minor update to make unique filename
@@ -46,7 +60,9 @@
 #       extract
 #           ./ws.py -e 
 #       rename
-#           ./ws.py -e -r 
+#           ./ws.py -e -r
+#       simplify
+#           ./ws.py -e -s 
 #
 #       debug
 #           ./ws.py -d
@@ -61,6 +77,7 @@ import os
 import sys
 import json
 import time
+import datetime
 from optparse import OptionParser
 
 
@@ -135,6 +152,7 @@ def main():
     parser.add_option("-t", "--title", dest="title", help="name of weather location")
     parser.add_option("-g", "--get", dest="get", action="store_true", help="get lastest data")
     parser.add_option("-e", "--extract", dest="extract",  action="store_true", help="extract the good bits")
+    parser.add_option("-s", "--simplify", dest="simplify", action="store_true", help="simplify extaction, remove unwanted data fields")
     parser.add_option("-r", "--rename", dest="rename", action="store_true", help="rename the extracted file to ^yyymmmddThh^ format")
     options, args = parser.parse_args()
 
@@ -249,11 +267,34 @@ def main():
             #-------
             # data extraction:
             #     placeholder for data extraction.
+            #     if options.simplify is chosen
+            #         look at keys in 'key_simple' and
+            #         extract and add to data list
+            #     else
+            #         extract all the data
             #-------
-            # looking at datetime
-            #for item in data:
-            #    if item:
-            #        if item['local_date_time_full']: print(item['local_date_time_full'])
+            kvd = []
+            if options.simplify:
+                key_simple = {'local_date_time_full': "0",'apparent_t': 0,'rel_hum': 0, 'sort_order': -1}
+                for key in key_simple:
+                    head[key] = key_simple[key]
+
+                ds = []
+                data_simple = {}
+
+                # look thru data, extract keys using key_simple 
+                # process, local_date_time_full
+                # 
+                for item in data:
+                    for key in item.keys():
+                        if key in key_simple:
+                            data_simple[key] = item[key]
+                    ds.append(data_simple)
+                    data_simple = {}
+
+                kvd = ds
+            else:
+                kvd = data               
 
 
             #--------
@@ -262,9 +303,9 @@ def main():
             #     data. A simple array in JS, header info at first line, rest
             #     of the data follows. Easy peasy. 
             d = []
-            d.append(head)        # header dict first
-            for item in data:       
-                d.append(item)    # lots of data items follow
+            d.append(head)          # header dict first
+            for item in kvd:        # if simple, reduced values otherwise alldata       
+                d.append(item)      # lots of data items follow
             #--------
 
  
@@ -286,6 +327,7 @@ def main():
                 # different fn, dont overwrite detailed fn. 
                 # use default fn for simplified, extracted data
                 fn = WEATHER_DATA_SIMPLE_FN
+
             # filepath with destination path           
             fpn = os.path.join(DEST_PATH, fn)       
             #--------
