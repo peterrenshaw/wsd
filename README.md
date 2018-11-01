@@ -20,11 +20,11 @@ TODO
   can create a date and manipulate it.
 
                local_date_time_full local_date_time_iso
-           ie: "20181102083000" ==> "2018-11-02T08:30:00"
+               "20181102083000" ==> "2018-11-02T08:30:00"
  
 * Note the key change:
 
-     local_date_time_full to local_date_time_iso
+              'local_date_time_full' ==> 'local_date_time_iso'
 
 * doing this allows great flexability at the d3js side where you can 
   manipulate dates and times at high granular level for graphing.
