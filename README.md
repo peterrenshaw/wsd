@@ -13,6 +13,7 @@
 TODO
 * set up cron & document 
 
+
 2018NOV01
 * Dates in JavaScript suck bad!
 
@@ -27,42 +28,6 @@ TODO
   when reading first record. is there a better way to do this? add a 
   header? that's what got me in the first place.
 
-* usage:
-
-       # BUILD A NEW CONFIGURATION FILE
-       # only do this once, or as needed.
-       new JSON configuration data file
-           ./ws.py -n -t 'melbourne airport' 
-                      -f "json" 
-                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
-           
-       # GET LATEST WEATHER 
-       # reads config file, gets the latest readings
-       get (weather data using config file)
-           ./ws.py -g
-
-       # EXTRACT 
-       # simplified subset of full report 
-       extract (simplify weather data)
-           ./ws.py -e 
-
-       # SIMPLIFY
-       simplify (remove unwanted fields)
-           ./ws.py -s
-
-       # RENAME
-       # instead of generic file, create a unique simplified data file
-       # with filename reflecting time created.
-       rename (rename file to yyyymmmdd, else static fn)
-           ./ws.py -r 
-
-       # DEBUG
-       # show some internal data states while operating
-       debug
-           ./ws.py -d
-
-       help
-           ./ws.py -h
 
 
 2018OCT31
@@ -78,38 +43,6 @@ TODO
 
 * changes to data filenames: allow to give unique yyyymmddThh filename and specific filename via -r option
 
-* usage: 
-
-       # BUILD A NEW CONFIGURATION FILE
-       # only do this once, or as needed.
-       new JSON configuration data file
-           ./ws.py -n -t 'melbourne airport' 
-                      -f "json" 
-                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
-           
-       # GET LATEST WEATHER 
-       # reads config file, gets the latest readings
-       get (weather data using config file)
-           ./ws.py -g
-
-       # EXTRACT 
-       # simplified subset of full report 
-       extract (simplify weather data)
-           ./ws.py -e 
-
-       # RENAME
-       # instead of generic file, create a unique simplified data file
-       # with filename reflecting time created.
-       rename (rename file to yyyymmmdd, else static fn)
-           ./ws.py -r 
-
-       # DEBUG
-       # show some internal data states while operating
-       debug
-           ./ws.py -d
-
-       help
-           ./ws.py -h
 
 
 
@@ -120,24 +53,6 @@ TODO
   using ./ws.py -e command. saves to destination directory for usage.
 
 * it is a simplified version of the downloaded file 
-
-* usage: 
-
-       new JSON configuration data file
-           ./ws.py -n -t 'melbourne airport' 
-                      -f "json" 
-                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
-           
-       get (weather data using config file)
-           ./ws.py -g
-
-       extract (simplify weather data)
-           ./ws.py -e 
-
-       debug
-           ./ws.py -d
-       help
-           ./ws.py -h
 
 
 2018OCT27
@@ -161,28 +76,8 @@ TODO
       <http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json>
 
 
-* usage: 
-
-       new JSON configuration data file
-       
-           ./ws.py -n -t 'melbourne airport' 
-                      -f "json" 
-                      -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
-           
-       get (weather data using config file)
-       
-           ./ws.py -g
-
-       extract (simplify weather data)
-           ./ws.py -e 
-
-       debug
-           ./ws.py -d
-       help
-           ./ws.py -h
-
-
-* started 2018OCT271200
+2018OCT271200
+* started
 
 
 vim: ff=unix:ts=4:sw=4:tw=78:noai:expandtab
