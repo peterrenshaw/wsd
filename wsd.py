@@ -4,11 +4,29 @@
 
 #========
 # name: ws.py
-# date: 2018OCT30
+# date: 2018NOV02
+#       2018NOV01
+#       2018OCT30
 #       2018OCT27
 # prog: pr
 # desc: grab your local BOM data & save to file, simplify data if needed
 #       save as json to new (web) directory for use.
+#
+#
+#       2018NOV02
+#       reformat that local time to a ISO format so we can convert to Date in JS side 
+#       the objective here is to create a datetime ISO standard, then at JS
+#       side you can create a date and manipulate it.
+#
+#               local_date_time_full local_date_time_iso
+#           ie: "20181102083000" ==> "2018-11-02T08:30:00"
+# 
+#       Note the key change: local_date_time_full to local_date_time_iso
+#       this needs to be used JS side.
+#
+#       doing this allows great flexability at the d3js side where you can 
+#       manipulate dates and times at high granular level for graphing.
+#
 #
 #       2018NOV01
 #       Dates in JavaScript suck bad!
@@ -28,6 +46,7 @@
 #       for extracted weather data: minor update to make unique filename
 #       with date optional & replace with default until directed. 
 #       Makes easier to have the same filename when calling from D3 code.
+#
 #
 #       2018OCT30: 
 #       A lost day. bugger: the file is so complex I'm having problems 
@@ -278,7 +297,7 @@ def main():
                 # TODO initialisation of these fields is dodgy, verify
                 # add these fields to the header so we don't have problem of 
                 # undefined. But we have to work with this on d3js side
-                key_simple = {'local_date_time_full': "0",'apparent_t': 0,'rel_hum': 0, 'sort_order': -1}
+                key_simple = {'local_date_time_iso': "1970-01-01T00:00:00",'apparent_t': 0,'rel_hum': 0, 'sort_order': -1}
                 for key in key_simple:
                     head[key] = key_simple[key]
 
@@ -290,8 +309,15 @@ def main():
                 # 
                 for item in data:
                     for key in item.keys():
+                        if key == 'local_date_time_full':
+                            # "20181102083000" ==> "2018-11-02T08:30:00"
+                            # reformat that local time to a ISO format so 
+                            # we can convert to Date in JS side 
+                            dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
+                            data_simple['local_date_time_iso'] = dt.isoformat()
+                        # filter these keys
                         if key in key_simple:
-                            data_simple[key] = item[key]
+                             data_simple[key] = item[key]
                     ds.append(data_simple)
                     data_simple = {}
 
