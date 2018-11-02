@@ -15,6 +15,12 @@ TODO
 
 
 2018NOV02
+* fix this crap:
+
+               TODO initialisation of these fields is dodgy, verify
+               add these fields to the header so we don't have problem of 
+               undefined. But we have to work with this on d3js side
+
 * reformat that local time to a ISO format so we can convert to Date in JS side 
   the objective here is to create a datetime ISO standard, then at JS side you 
   can create a date and manipulate it.

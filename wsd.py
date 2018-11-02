@@ -14,6 +14,12 @@
 #
 #
 #       2018NOV02
+#       fix this crap:
+#
+#                TODO initialisation of these fields is dodgy, verify
+#                add these fields to the header so we don't have problem of 
+#                undefined. But we have to work with this on d3js side
+#
 #       reformat that local time to a ISO format so we can convert to Date in JS side 
 #       the objective here is to create a datetime ISO standard, then at JS
 #       side you can create a date and manipulate it.
@@ -265,6 +271,7 @@ def main():
             #--------
 
 
+            """
             #-------
             # header extraction:
             #     we want the message, ID and main ID
@@ -281,8 +288,28 @@ def main():
                     if item['main_ID']:
                         head['mid'] = item['main_ID']
             #--------
+            """
 
-
+            """
+                        if key == 'local_date_time_full':
+                            # "20181102083000" ==> "2018-11-02T08:30:00"
+                            # reformat that local time to a ISO format so we can convert to Date in JS side 
+                            dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
+                            data_simple['local_date_time_iso'] = dt.isoformat()
+            """
+            """
+                    for key in item.keys():
+                        if key  == 'local_date_time_full':
+                            # "20181102083000" ==> "2018-11-02T08:30:00"
+                            # reformat that local time to a ISO format 
+                            # so we can convert to Date in JS side 
+                            dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
+                            ds['local_date_time_iso'] = dt.isoformat()
+                        if key in ds_line:
+                            ds[key] = item[key]
+                         
+                        d.append(ds)
+            """
             #-------
             # data extraction:
             #     placeholder for data extraction.
@@ -294,34 +321,44 @@ def main():
             #-------
             kvd = []
             if options.simplify:
-                # TODO initialisation of these fields is dodgy, verify
-                # add these fields to the header so we don't have problem of 
-                # undefined. But we have to work with this on d3js side
-                key_simple = {'local_date_time_iso': "1970-01-01T00:00:00",'apparent_t': 0,'rel_hum': 0, 'sort_order': -1}
-                for key in key_simple:
-                    head[key] = key_simple[key]
-
-                ds = []
-                data_simple = {}
+                d = []
+                ds = {}
+                ds_line = {'apparent_t': 0,
+                           'local_date_time_iso': '',
+                           'gust_kmh': 0,
+                           'rel_hum': 0,
+                           'sort_order': 0}
 
                 # look thru data, extract keys using key_simple 
                 # process, local_date_time_full
-                # 
+                #
+                #     "20181102083000" ==> "2018-11-02T08:30:00"
+                #
+                # reformat that local time to a ISO format 
+                # so we can convert to Date in JS side 
+                name = header[0]['name']
+                description = "{} {} {}".format(header[0]['state_time_zone'],
+                                                header[0]['name'],
+                                                header[0]['refresh_message'])
+                product = "{}.{}".format(header[0]['main_ID'], header[0]['ID'])
+                
+
                 for item in data:
                     for key in item.keys():
+                        
+                        if key in ds_line:
+                            ds[key] = item[key]
                         if key == 'local_date_time_full':
-                            # "20181102083000" ==> "2018-11-02T08:30:00"
-                            # reformat that local time to a ISO format so 
-                            # we can convert to Date in JS side 
                             dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
-                            data_simple['local_date_time_iso'] = dt.isoformat()
-                        # filter these keys
-                        if key in key_simple:
-                             data_simple[key] = item[key]
-                    ds.append(data_simple)
-                    data_simple = {}
-
-                kvd = ds
+                            ds['local_date_time_iso'] = dt.isoformat()
+                        
+                        # header info
+                        ds['name'] = name
+                        ds['product'] = product
+                        ds['description'] = description
+                    d.append(ds)
+                    ds = {}
+                kvd = d
             else:
                 kvd = data               
 
@@ -331,10 +368,10 @@ def main():
             #     I want a simple list with a simple header and line items of
             #     data. A simple array in JS, header info at first line, rest
             #     of the data follows. Easy peasy. 
-            d = []
-            d.append(head)          # header dict first
+            data = []
             for item in kvd:        # if simple, reduced values otherwise alldata       
-                d.append(item)      # lots of data items follow
+                data.append(item)   # lots of data items follow
+            d = data
             #--------
 
  
