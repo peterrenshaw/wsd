@@ -271,45 +271,6 @@ def main():
             #--------
 
 
-            """
-            #-------
-            # header extraction:
-            #     we want the message, ID and main ID
-            #     this uniquely describes the file
-            head = {}
-            for item in header:
-                if item:
-                    if item['name']:
-                        head['location'] = item['name']
-                    if item['refresh_message']:
-                        head['description'] = item['refresh_message']
-                    if item['ID']:
-                        head['id'] = item['ID']
-                    if item['main_ID']:
-                        head['mid'] = item['main_ID']
-            #--------
-            """
-
-            """
-                        if key == 'local_date_time_full':
-                            # "20181102083000" ==> "2018-11-02T08:30:00"
-                            # reformat that local time to a ISO format so we can convert to Date in JS side 
-                            dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
-                            data_simple['local_date_time_iso'] = dt.isoformat()
-            """
-            """
-                    for key in item.keys():
-                        if key  == 'local_date_time_full':
-                            # "20181102083000" ==> "2018-11-02T08:30:00"
-                            # reformat that local time to a ISO format 
-                            # so we can convert to Date in JS side 
-                            dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
-                            ds['local_date_time_iso'] = dt.isoformat()
-                        if key in ds_line:
-                            ds[key] = item[key]
-                         
-                        d.append(ds)
-            """
             #-------
             # data extraction:
             #     placeholder for data extraction.
