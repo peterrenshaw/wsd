@@ -1,12 +1,7 @@
-     _      __ ____ ___ 
-    | | /| / // __// _ \
-    | |/ |/ /_\ \ / // /
-    |__/|__//___//____/ 
-                                                            
-
+# WSD ☀️🌤️🌦️🌧️
+                                             
 ![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
 
-# WSD ☀️🌤️🌦️🌧️
 
 TODO
 * cron: set up cron

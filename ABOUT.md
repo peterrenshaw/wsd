@@ -1,12 +1,6 @@
-     _      __ ____ ___ 
-    | | /| / // __// _ \
-    | |/ |/ /_\ \ / // /
-    |__/|__//___//____/ 
-                                                            
+# WSD ☀️🌤️🌦️🌧️                                 
 
 ![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
-
-# WSD ☀️🌤️🌦️🌧️
 
 WHY?
 * need some periodic useful data to play with D3, so I hacked 
