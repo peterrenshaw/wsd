@@ -36,7 +36,9 @@ TODO
 
       each data point is also indicated with a black circle
 
-      haven't worked out how to show  
+      haven't worked out how to show temp. value (axes)
+
+* boy is d3 precise and brittle.
 
 2018NOV02
 * fix this crap:
