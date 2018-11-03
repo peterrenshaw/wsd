@@ -14,6 +14,15 @@ TODO
 * set up cron & document 
 
 
+2018NOV03
+* added the d3js in <www/index.html> included is the output file
+  <www/latest-simple-weather.json> (with redundant data). 
+
+* to run in the www path:
+
+     python -m http.server:8000 
+
+
 2018NOV02
 * fix this crap:
 

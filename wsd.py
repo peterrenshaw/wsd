@@ -368,11 +368,12 @@ def main():
                                    sort_keys=True)
             #---------
 
-            #save file
+
+            #---------
+            # save file
             with open(fpn, 'w') as f:
                 f.write(json_data)
             f.close()
-
             sys.exit(0)
         else:
             sys.stderr.write("Error: cannot locate file to extract")
