@@ -10,6 +10,8 @@
 
 ![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
 
+# WSD ☀️🌤️🌦️🌧️
+
 TODO
 * cron: set up cron
         document 
