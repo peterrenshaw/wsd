@@ -9,6 +9,7 @@
     |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 ![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
+
 TODO
 * cron: set up cron
         document 
