@@ -19,6 +19,8 @@ TODO
 
 
 2018NOV03
+* in <www/index.html> remove d3js code and place into <www/weather.js>
+
 * added header via creating a new header data file 
   until I can work out how to break down complex data in JS this
   will do.
