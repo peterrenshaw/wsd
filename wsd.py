@@ -11,8 +11,9 @@
 # prog: pr
 # desc: grab your local BOM data & save to file, simplify data if needed
 #       save as json to new (web) directory for use.
-#
-#
+#       
+#       WSD ☀️🌤️🌦️🌧️
+#      
 #       2018NOV02
 #       fix this crap:
 #
