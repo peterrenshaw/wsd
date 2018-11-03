@@ -11,7 +11,11 @@
 
 
 TODO
-* set up cron & document 
+* cron: set up cron
+        document 
+* d3:   title, description
+        work out axes
+        how to show data values 
 
 
 2018NOV03
@@ -22,6 +26,17 @@ TODO
 
      python -m http.server:8000 
 
+* the output for <www/index.html> is svg. 
+
+* features:
+
+      each data point is represented by a vertical rectangle.
+
+      the colour choice is to reflect the increase in temperature
+
+      each data point is also indicated with a black circle
+
+      haven't worked out how to show  
 
 2018NOV02
 * fix this crap:
