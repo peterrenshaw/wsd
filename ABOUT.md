@@ -9,8 +9,7 @@
     | |/ |/ // -_)/ _ `// __// _ \/ -_)/ __/
     |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
-
-
+![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
 WHY?
 * need some periodic useful data to play with D3, so I hacked 
   a quick bit of code to get periodic weather data from BOM
