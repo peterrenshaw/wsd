@@ -20,13 +20,13 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( fu
 .then(function(d) {
     // label
     d3.select("body") 
-      .selectAll("h4")
-	          .data(d)
-      .enter()
-	          .append("h4")
-		  .text(function(d) {
+      .selectAll("h4") 
+      .data(d)
+      .enter() 
+      .append("h4")
+      .text(function(d) {
 	   return d;
-		  })
+      });
 })
 .catch( error => console.log("Error: " + error) );
 
@@ -39,21 +39,22 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
 .then( function (data) {
     var d = [];
     for (i = 0; i < data.length; i++) {
-// create a Date object
-var dt = new Date(data[i].local_date_time_iso);
 
-// format dt to hour
-var hourFormater = d3.timeFormat("%H:%M%");
-var hour = d3.timeHour.round(dt);
+        // create a Date object
+        var dt = new Date(data[i].local_date_time_iso);
 
-// create dict for d3
-d[i] = data[i].apparent_t;
-/*
-d[i] = {'temp':  data[i].apparent_t,
-        'wind':  data[i].gust_kmh,
-        'humid': data[i].rel_hum, 
-        'hour':  hourFormater(hour)};
-*/
+        // format dt to hour
+        var hourFormater = d3.timeFormat("%H:%M%");
+        var hour = d3.timeHour.round(dt);
+
+        // create dict for d3
+        d[i] = data[i].apparent_t;
+        /*
+        d[i] = {'temp':  data[i].apparent_t,
+                'wind':  data[i].gust_kmh,
+                'humid': data[i].rel_hum, 
+                'hour':  hourFormater(hour)};
+        */
     }
     return d;
 })
@@ -100,7 +101,7 @@ d[i] = {'temp':  data[i].apparent_t,
            return h - (d * 4) + 2;
         })
         .attr("cx", function(d, i) {
-return i * (w / data.length) + (w / data.length - barPadding) / 2
+           return i * (w / data.length) + (w / data.length - barPadding) / 2
         })
         .attr("r", 1);
      
@@ -110,17 +111,17 @@ return i * (w / data.length) + (w / data.length - barPadding) / 2
         .enter()
         .append("text")
         .text(function(d) {
-//return Math.floor(d);
-return "";
+            //return Math.floor(d);
+            return "";
         })
         .attr("font-family", "sans-serif")
         .attr("font-size", "6pt")
         .attr("fill", "black")
         .attr("y", function(d) {
-return h - (d * 4) - 10;
+            return h - (d * 4) - 10;
         })
         .attr("x", function(d, i) {
-return (i * (w / data.length) + (w / data.length - barPadding) / 2 ) - 6
+            return (i * (w / data.length) + (w / data.length - barPadding) / 2 ) - 6
         });
 })
 .catch( error => console.log("Error: " + error) );
@@ -132,12 +133,12 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( fu
     // label
     d3.select("body") 
       .selectAll("h4")
-	          .data(d)
-      .enter()
-	          .append("h4")
-		  .text(function(d) {
+      .data(d)
+      .enter() 
+      .append("h4")
+      .text(function(d) {
 	   return d;
-		  })
+       })
 })
 .catch( error => console.log("Error: " + error) );
 

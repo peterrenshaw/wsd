@@ -3,10 +3,6 @@
     | |/ |/ /_\ \ / // /
     |__/|__//___//____/ 
                                                             
-     _      __            __   __           
-    | | /| / /___  ___ _ / /_ / /  ___  ____
-    | |/ |/ // -_)/ _ `// __// _ \/ -_)/ __/
-    |__/|__/ \__/ \_,_/ \__//_//_/\__//_/  
 
 ![WSD: latest weather](https://github.com/peterrenshaw/wsd/blob/master/www/latest-simple-weather.png)
 
@@ -21,6 +17,8 @@ TODO
 
 
 2018NOV03
+* rebrand, fix js code formatting.
+
 * in <www/index.html> remove d3js code and place into <www/weather.js>
 
 * added header via creating a new header data file 
