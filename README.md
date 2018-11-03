@@ -18,6 +18,14 @@ TODO
 
 
 2018NOV03
+* added header via creating a new header data file 
+  until I can work out how to break down complex data in JS this
+  will do.
+
+     header <www/latest-simple-weather-header.json>
+
+* contains multiple fields (title and description)
+
 * added the d3js in <www/index.html> included is the output file
   <www/latest-simple-weather.json> (with redundant data). 
 

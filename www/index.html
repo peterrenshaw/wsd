@@ -7,9 +7,27 @@
     </head>
     <body>
         <script type="text/javascript">
+            // HEADER
+            d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( function(data) {
+                return data;
+            })
+            .then(function(d) {
+                // label
+                d3.select("body") 
+                  .selectAll("h4")
+	          .data(d)
+                  .enter()
+	          .append("h4")
+		  .text(function(d) {
+	               return d;
+		  })
+            })
+            .catch( error => console.log("Error: " + error) );
+
+
+            // GRAPH
             var parser = d3.timeParse("%m/%dT%H%M");
-            var weather = {'time': [], 'temp': []};
-            var wd = d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(data) {
+            d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(data) {
                 return data;
             })
             .then( function (data) {
@@ -34,10 +52,11 @@
                 return d;
             })
             .then( function (data) {
-                var w = 1000;
-                var h = 300;
-                var barPadding = 2;
+                var w = 800;
+                var h = 200;
+                var barPadding = 0.8;
 
+                // svg container for weather
                 var svg = d3.select("body")
                             .append("svg")
                             .attr("width", w)  
@@ -99,8 +118,23 @@
                     });
             })
             .catch( error => console.log("Error: " + error) );
+            // HEADER
+            d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( function(data) {
+                return data;
+            })
+            .then(function(d) {
+                // label
+                d3.select("body") 
+                  .selectAll("h4")
+	          .data(d)
+                  .enter()
+	          .append("h4")
+		  .text(function(d) {
+	               return d;
+		  })
+            })
+            .catch( error => console.log("Error: " + error) );
 
-            
         </script>
     </body>
 </html>

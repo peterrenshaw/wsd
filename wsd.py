@@ -118,7 +118,8 @@ DEST_PATH = os.path.join(BASE_PATH, "d3/data")  #TODO: optional save to argument
 CONF_DATA_FILE = 'config.json'
 WEATHER_DATA_ALL_FN = 'latest-full-weather.json'
 WEATHER_DATA_SIMPLE_FN = 'latest-simple-weather.json'
-    
+WEATHER_DATA_SIMPLE_HEAD_FN = 'latest-simple-weather-header.json'    
+
 CDFPN = os.path.join(CODE_PATH, CONF_DATA_FILE)
 WDFPN = os.path.join(DEST_PATH, WEATHER_DATA_ALL_FN)
 
@@ -281,6 +282,7 @@ def main():
             #         extract all the data
             #-------
             kvd = []
+            h = []
             if options.simplify:
                 d = []
                 ds = {}
@@ -297,13 +299,20 @@ def main():
                 #
                 # reformat that local time to a ISO format 
                 # so we can convert to Date in JS side 
+                title = "latest"
                 name = header[0]['name']
-                description = "{} {} {}".format(header[0]['state_time_zone'],
-                                                header[0]['name'],
-                                                header[0]['refresh_message'])
-                product = "{}.{}".format(header[0]['main_ID'], header[0]['ID'])
-                
+                timezone = header[0]['state_time_zone']
+                location = "{} / {}".format(name, timezone)
 
+                message = header[0]['refresh_message']
+                product = "{}.{}".format(header[0]['main_ID'], header[0]['ID'])
+
+                #h.append(title.upper())
+                h.append(location.upper())
+                h.append(message.capitalize())
+                #h.append(product.lower())
+
+                # gather the data
                 for item in data:
                     for key in item.keys():
                         
@@ -313,10 +322,6 @@ def main():
                             dt = datetime.datetime(*time.strptime(item['local_date_time_full'], "%Y%m%d%H%M%S")[0:5])
                             ds['local_date_time_iso'] = dt.isoformat()
                         
-                        # header info
-                        ds['name'] = name
-                        ds['product'] = product
-                        ds['description'] = description
                     d.append(ds)
                     ds = {}
                 kvd = d
@@ -350,30 +355,42 @@ def main():
                 # build unique filename: YYYY, MMM, DD, 'T' and 24HH
                 fn = time.strftime("%Y%b%dT%H")
                 fn = "{}.json".format(fn.upper())
+                fnh = "{}-header.json".format(fn.upper())
             else:
                 # different fn, dont overwrite detailed fn. 
                 # use default fn for simplified, extracted data
                 fn = WEATHER_DATA_SIMPLE_FN
+                fnh = WEATHER_DATA_SIMPLE_HEAD_FN 
 
             # filepath with destination path           
-            fpn = os.path.join(DEST_PATH, fn)       
+            fpn = os.path.join(DEST_PATH, fn)
+            fpnh = os.path.join(DEST_PATH, fnh)    
             #--------
+
 
             #---------
             # data format:
             #     convert data to json, making sure it's easy to read
-            json_data = json.dumps(d, 
-                                   ensure_ascii=False,
-                                   indent=4,
-                                   sort_keys=True)
+            jd  = json.dumps(d, ensure_ascii=False,
+                                      indent=4,
+                                      sort_keys=True)
+            jdh = json.dumps(h, ensure_ascii=False,
+                                indent=4,
+                                sort_keys=True)
             #---------
 
 
-            #---------
-            # save file
+            #--------
+            # save simple weather DATA file
             with open(fpn, 'w') as f:
-                f.write(json_data)
+                f.write(jd)
             f.close()
+            # save simple weather HEADER file
+            with open(fpnh, 'w') as f:
+                f.write(jdh)
+            f.close()
+            #--------
+
             sys.exit(0)
         else:
             sys.stderr.write("Error: cannot locate file to extract")
