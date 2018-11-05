@@ -32,8 +32,12 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( fu
 .catch( error => console.log("Error: " + error) );
 
 
-// GRAPH
+// DATA
 var parser = d3.timeParse("%m/%dT%H%M");
+var color = d3.scaleLinear()
+              .domain([0, 10, 20, 30, 40, 50])
+              .range(["blue", "green", "yellow", "red", "purple"]);
+
 d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(data) {
     return data;
 })
@@ -90,7 +94,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
        })
        .attr("stroke-width", "0.1")
        .attr("fill", function(d) {
-           return d3.rgb(d*10, 180 + d*1.5, 140 + d, 1.0);
+           return color(d);
        })
 
      // show data point of temp
@@ -126,6 +130,8 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         });
 })
 .catch( error => console.log("Error: " + error) );
+
+
 // HEADER
 d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( function(data) {
     return data;
