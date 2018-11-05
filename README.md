@@ -17,8 +17,9 @@ TODO
 * using d3.scaleLinear created a colour range for temp
   with the follow colour grading:
 
-    0,    10,      20,       30,    40,      50
-    "blue", "green", "yellow", "red", "purple"
+       0,     10,      20,       30,    40,      50
+
+        "blue", "green", "yellow", "red", "purple"
 
 2018NOV03
 * rebrand, fix js code formatting.
