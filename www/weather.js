@@ -37,7 +37,6 @@ var parser = d3.timeParse("%m/%dT%H%M");
 var color = d3.scaleLinear()
               .domain([0, 10, 20, 30, 40, 50])
               .range(["blue", "green", "yellow", "red", "purple"]);
-
 d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(data) {
     return data;
 })
@@ -86,7 +85,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
            return d * 40;
        })
        .attr("x", function(d, i) {
-           	return i * (w / data.length);
+           return i * (w / data.length);
        })
        .attr("width", w / data.length - barPadding)
        .attr("stroke", function(d) {
@@ -108,7 +107,14 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         .attr("cx", function(d, i) {
            return i * (w / data.length) + (w / data.length - barPadding) / 2
         })
-        .attr("r", 1);
+        .attr("r", 1)
+        .attr("fill", function(d) {
+            if ((d <= 15.0)) {
+                return "white";
+            } else {
+                return "black";
+            }
+        })
      
      // show temp value
      svg.selectAll("text")

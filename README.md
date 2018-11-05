@@ -11,7 +11,8 @@ TODO
         how to show data values 
 
 2018NOV05
-* improve this by selecting different colours if needed.
+* quick hack to change data points to either black (light colour) or 
+  white (dark colour) so you can see the points across entire graph.
 
 * using d3.scaleLinear created a colour range for temp
   with the follow colour grading:
