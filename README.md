@@ -11,7 +11,7 @@ TODO
         how to show data values 
 
 2018NOV05
-* improve this by selecting differenc colours if needed.
+* improve this by selecting different colours if needed.
 
 * using d3.scaleLinear created a colour range for temp
   with the follow colour grading:
