@@ -16,18 +16,14 @@ TODO
 ```
 // OLD WAY collect data
 //d[i] = data[i].apparent_t;
-
-
 // NEW WAY collect the data    
 d[i] = {'temp':  data[i].apparent_t,
                 'wind':  data[i].gust_kmh,
                 'humid': data[i].rel_hum, 
                 'hour':  hourFormater(hour)};
-
 ...
 ...
 ...
-
 // show height of temp
 svg.selectAll("rect")
        .data(data)                          // ALL DATA IN
