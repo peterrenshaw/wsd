@@ -10,6 +10,9 @@ TODO
         work out axes
         how to show data values 
 
+2018NOV06
+* setup cron, added wr.sh conf/cron.sh, yet to test
+
 2018NOV05
 * quick hack to change data points to either black (light colour) or 
   white (dark colour) so you can see the points across entire graph.

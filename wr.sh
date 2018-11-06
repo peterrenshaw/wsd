@@ -11,7 +11,7 @@
 #           ./ws.py -g 
 #   
 #           b) EXTRACT and simplifiy
-#           ./ws.py -e
+#           ./ws.py -e -s
 #
 #       DATA FILES
 #       the data files 'latest-weather-simple' and 'latest-weather-complex' 
@@ -40,7 +40,7 @@
     #
     TRUE=1
     FALSE=0
-    IS_PROD=$TRUE
+    IS_PROD=$FALSE
     #
     # prod information
     #
@@ -55,7 +55,7 @@
     LIN_HOME=/home/$LI_USER/code
     MAC_USER=pr
     MAC_HOME=/Users/$MAC_USER/work/code
-    CODEDIR='wsd'
+    CODEDIR='py/wsd'
     #
     # build filepath, machine dependent
     #
@@ -73,7 +73,7 @@
     echo "$SCRIPT_NAME start"
     PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
     $PYVER $CODE_PATH/wsd.py -g
-    $PYVER $CODE_PATH/wsd.py -e
+    $PYVER $CODE_PATH/wsd.py -e -s
     echo "$PRODUCT_NAME called"
     echo "$SCRIPT_NAME stop"
     #--------
