@@ -24,7 +24,5 @@
 
     crontab -u $USR $CTP
     crontab -l
-
-
 }
 >/dev/null 2>&1

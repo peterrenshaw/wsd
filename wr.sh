@@ -22,7 +22,8 @@
 #       so either a 45min update or 30min at 5min offset from 
 #       the hour is ideal.
 #
-#       TODO
+#       disable email warnings
+#           >/dev/null 2>&1
 #
 # usag: will show up in console via cron with the below echos
 #       errors will be mailed
@@ -77,4 +78,4 @@
     echo "$PRODUCT_NAME called"
     echo "$SCRIPT_NAME stop"
     #--------
-} >&2
+} >/dev/null 2>&1

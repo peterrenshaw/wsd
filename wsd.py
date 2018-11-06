@@ -13,7 +13,11 @@
 #       save as json to new (web) directory for use.
 #       
 #       WSD ☀️🌤️🌦️🌧️
-#      
+#
+#       2018NOV06
+#       add rain_trace to data processing. allows weather.js to rain
+#       information     
+# 
 #       2018NOV02
 #       fix this crap:
 #
