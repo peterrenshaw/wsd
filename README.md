@@ -11,6 +11,8 @@ TODO
         how to show data values 
 
 2018NOV06
+* added rain info, 'rain_trace' to simple processing.
+
 * setup cron, added wr.sh conf/cron.sh, yet to test
 
 2018NOV05

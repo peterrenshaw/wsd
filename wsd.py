@@ -291,6 +291,7 @@ def main():
                            'local_date_time_iso': '',
                            'gust_kmh': 0,
                            'rel_hum': 0,
+                           'rain_trace': 0,
                            'sort_order': 0}
 
                 # look thru data, extract keys using key_simple 
