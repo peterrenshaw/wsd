@@ -13,22 +13,23 @@ TODO
 2018NOV06
 * funky: got the temp values from the looped instance of all data :)
 
-    // OLD WAY collect data
-    //d[i] = data[i].apparent_t;
+```
+// OLD WAY collect data
+//d[i] = data[i].apparent_t;
 
 
-    // NEW WAY collect the data    
-    d[i] = {'temp':  data[i].apparent_t,
+// NEW WAY collect the data    
+d[i] = {'temp':  data[i].apparent_t,
                 'wind':  data[i].gust_kmh,
                 'humid': data[i].rel_hum, 
                 'hour':  hourFormater(hour)};
 
-    ...
-    ...
-    ...
+...
+...
+...
 
-    // show height of temp
-    svg.selectAll("rect")
+// show height of temp
+svg.selectAll("rect")
        .data(data)                          // ALL DATA IN
        .enter()
        .append("rect")
@@ -49,7 +50,7 @@ TODO
        .attr("fill", function(d) {
            return color(d['temp']);        // SPECIFIC temp value
        })
-
+```
 
 * added rain info, 'rain_trace' to simple processing.
 
