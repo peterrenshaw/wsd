@@ -53,9 +53,9 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         var hour = d3.timeHour.round(dt);
 
         // create dict for d3
-        //d[i] = data[i].apparent_t;
         d[i] = {'temp':  data[i].apparent_t,
                 'wind':  data[i].gust_kmh,
+                'rain':  data[i].rain_trace,
                 'humid': data[i].rel_hum, 
                 'hour':  hourFormater(hour)};
         
@@ -116,7 +116,32 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
             }
         })
 
+     // rainfall
+     svg.selectAll("rect")
+       .data(data)
+       .enter()
+       .append("rect")
+       .attr("y", function(d) {
+           return h - (d['rain'] * 4);
+       })
+       .attr("height", function(d) {
+           return d['rain'] * 40;
+       })
+       .attr("x", function(d, i) {
+           return i * (w / data.length);
+       })
+       .attr("width", w / data.length - barPadding)
+       .attr("stroke", function(d) {
+           return "white";
+       })
+       .attr("stroke-width", "0.1")
+       .attr("fill", function(d) {
+           return "blue";
+       })
+
+
      // show temp value
+     /*
      svg.selectAll("text")
         .data(data)
         .enter()
@@ -134,6 +159,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         .attr("x", function(d, i) {
             return (i * (w / data.length) + (w / data.length - barPadding) / 2 ) - 6
         });
+        */
 })
 .catch( error => console.log("Error: " + error) );
 

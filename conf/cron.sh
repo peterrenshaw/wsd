@@ -6,20 +6,25 @@
 # date: 2018OCT31
 # prog: pr
 # desc: Weather Report cron setup
+# usge: 
+#       sudo ./cron.sh
 # 
-#           a) GET latest report
-#           sudo ./cron.sh
-# 
+#       disable the emails
+#           >/dev/null 2>&1
 #========
 
 
 {
-    USER=pr
-    CODE=/User/pr/work/code/py/wsd/wr.sh
+    USR=pr
+    CTP=/Users/pr/work/code/py/wsd/conf/crontab.cron
 
     echo "REMEMBER SUDO"
-    crontab -u $USER $CODE
-    echo 'crontab -u' $USER $CODE
+    echo "User: $USR"
+    echo "Cron: $CTP"
+
+    crontab -u $USR $CTP
     crontab -l
 
-} >&2
+
+}
+>/dev/null 2>&1

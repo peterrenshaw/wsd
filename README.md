@@ -11,6 +11,8 @@ TODO
         how to show data values 
 
 2018NOV06
+* crontab testing
+
 * funky: got the temp values from the looped instance of all data :)
 
 ```
