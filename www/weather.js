@@ -36,8 +36,6 @@ var parser = d3.timeParse("%m/%dT%H%M");
 var color = d3.scaleLinear()
               .domain([0, 10, 20, 30, 40, 50])
               .range(["blue", "green", "yellow", "red", "purple"]);
-var lineGenerator = d3.line().curve(d3.curveCardinal);
-
 
 // DATA
 d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(data) {
@@ -55,13 +53,12 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         var hour = d3.timeHour.round(dt);
 
         // create dict for d3
-        d[i] = data[i].apparent_t;
-        /*
+        //d[i] = data[i].apparent_t;
         d[i] = {'temp':  data[i].apparent_t,
                 'wind':  data[i].gust_kmh,
                 'humid': data[i].rel_hum, 
                 'hour':  hourFormater(hour)};
-        */
+        
     }
     return d;
 })
@@ -82,10 +79,10 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
        .enter()
        .append("rect")
        .attr("y", function(d) {
-           return h - (d * 4);
+           return h - (d['temp'] * 4);
        })
        .attr("height", function(d) {
-           return d * 40;
+           return d['temp'] * 40;
        })
        .attr("x", function(d, i) {
            return i * (w / data.length);
@@ -96,7 +93,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
        })
        .attr("stroke-width", "0.1")
        .attr("fill", function(d) {
-           return color(d);
+           return color(d['temp']);
        })
 
      // show data point of temp
@@ -105,31 +102,20 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         .enter()
         .append("circle")
         .attr("cy", function(d) {
-           return h - (d * 4) + 2;
+           return h - (d['temp'] * 4) + 2;
         })
         .attr("cx", function(d, i) {
            return i * (w / data.length) + (w / data.length - barPadding) / 2
         })
         .attr("r", 1)
         .attr("fill", function(d) {
-            if ((d <= 15.0)) {
+            if ((d['temp'] <= 15.0)) {
                 return "white";
             } else {
                 return "black";
             }
         })
-    
-     // show line thru data points
-     var pathData = lineGenerator(data);
-     svg.selectAll('path')
-        .data(pathData)
-        .enter()
-        .append('path') 
-	.attr('d', pathData)
-        .attr("fill", function(d) {
-            return "red";
-        })
- 
+
      // show temp value
      svg.selectAll("text")
         .data(data)
@@ -143,7 +129,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
         .attr("font-size", "6pt")
         .attr("fill", "black")
         .attr("y", function(d) {
-            return h - (d * 4) - 10;
+            return h - (d['temp'] * 4) - 10;
         })
         .attr("x", function(d, i) {
             return (i * (w / data.length) + (w / data.length - barPadding) / 2 ) - 6
