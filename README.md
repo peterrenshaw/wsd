@@ -17,19 +17,21 @@ TODO
 
   will output file to: <.../some/dir/scale.json> and will look like (pretty printed json)
 
-> [
->    0,
->    1000,
->    3000,
->    2000,
->    5000,
->    4000,
->    7000,
->    6000,
->    9000,
->    8000,
->    10000
-> ] 
+```
+   [
+      0,
+      1000,
+      3000,
+      2000,
+      5000,
+      4000,
+      7000,
+      6000,
+      9000,
+      8000,
+      10000
+ ]
+``` 
 
 * added tool.py to create simple JSON files from data supplied
   by string for testing.
