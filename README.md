@@ -10,6 +10,10 @@ TODO
         work out axes
         how to show data values 
 
+2018NOV07
+* added tool.py to create simple JSON files from data supplied
+  by string for testing.
+
 2018NOV06
 * removed rain from graph, crontab done
 
