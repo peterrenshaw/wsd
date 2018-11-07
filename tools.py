@@ -32,7 +32,9 @@ def main():
     parser.add_option("-p", "--pretty", action="store_true", dest="pretty", 
                                         help="make the data easier to read")
     parser.add_option("-f", "--filename", dest="filename",
-                                          help="save the json data to a file")
+                                          help="supply a filename to save data to file")
+    parser.add_option("-d", "--directory", dest="directory", 
+                                           help="supply directory to save file")  
     options, args = parser.parse_args()
 
 
@@ -59,9 +61,23 @@ def main():
         #--------
         # save json data to file?
         if options.filename:
-            fn = options.filename
-            if fn:
-                with open(fn, 'w') as f:
+
+            # build filename
+            fn = "{}.json".format(options.filename)
+
+            # build a valid filepath name?
+            fpn = ""
+            if options.directory:
+                if os.path.isdir(options.directory):
+                    fpn = os.path.join(options.directory, fn)
+                else:
+                    sys.stderr.write("Error: please supply a valid filepath.\n\t<{}>".format(options.filepath))
+            else:
+                fpn = fn
+
+            # save to file
+            if fpn:
+                with open(fpn, 'w') as f:
                      f.write(jd)
                 f.close()
             else:
