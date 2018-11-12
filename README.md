@@ -10,6 +10,13 @@ TODO
         work out axes
         how to show data values 
 
+2018NOV12
+* found the data source was coming in backwards, do the temps got colder
+  during the day. Fixed this in <www/weather.js> by reversing data.
+
+* think about this problem as data has some order. in this case it was in
+  reverse date order 
+
 2018NOV07
 * usage:
 
