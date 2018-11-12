@@ -1,7 +1,8 @@
 /*
 #========
 # name: ws.py
-# date: 2018NOV02
+# date: 2018NOV12
+#       2018NOV02
 #       2018NOV01
 #       2018OCT30
 #       2018OCT27
@@ -43,8 +44,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
 })
 .then( function (data) {
     var d = [];
-    for (i = 0; i < data.length; i++) {
-
+    for (var i = 0; i < data.length; i++) {
         // create a Date object
         var dt = new Date(data[i].local_date_time_iso);
 
@@ -58,14 +58,32 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
                 'rain':  data[i].rain_trace,
                 'humid': data[i].rel_hum, 
                 'hour':  hourFormater(hour)};
-        
+
     }
-    return d;
+  
+    //--------
+    // TODO - sort this out at data source
+    //        is ordered by date sequence
+    // 
+    // need data 'cause 
+    // source data is in 
+    // datetime sequence!
+    //--------
+    return d.reverse();
 })
 .then( function (data) {
     var w = 800;
     var h = 200;
     var barPadding = 0.8;
+
+    // scales
+    var xscale = d3.scaleLinear()
+                  .domain([0, d3.max(data, function(d) { return d[0]; })])  // input domain
+                  .range([0, w]);                                           // output range
+    var yscale = d3.scaleLinear()
+                  .domain([0, d3.max(data, function(d) { return d[1]; })])  // input domain
+                  .range([0, h]);                                           // output range
+
 
     // svg container for weather
     var svg = d3.select("body")
@@ -105,7 +123,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
            return h - (d['temp'] * 4) + 2;
         })
         .attr("cx", function(d, i) {
-           return i * (w / data.length) + (w / data.length - barPadding) / 2
+           return i * (w / data.length) + (w / data.length - barPadding) / 2;
         })
         .attr("r", 1)
         .attr("fill", function(d) {
@@ -115,70 +133,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
                 return "black";
             }
         })
-
-     // rainfall
-     svg.selectAll("rect")
-       .data(data)
-       .enter()
-       .append("rect")
-       .attr("y", function(d) {
-           return h - (d['rain'] * 4);
-       })
-       .attr("height", function(d) {
-           return d['rain'] * 40;
-       })
-       .attr("x", function(d, i) {
-           return i * (w / data.length);
-       })
-       .attr("width", w / data.length - barPadding)
-       .attr("stroke", function(d) {
-           return "white";
-       })
-       .attr("stroke-width", "0.1")
-       .attr("fill", function(d) {
-           return "blue";
-       })
-
-
-     // show temp value
-     /*
-     svg.selectAll("text")
-        .data(data)
-        .enter()
-        .append("text")
-        .text(function(d) {
-            //return Math.floor(d);
-            return "";
-        })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "6pt")
-        .attr("fill", "black")
-        .attr("y", function(d) {
-            return h - (d['temp'] * 4) - 10;
-        })
-        .attr("x", function(d, i) {
-            return (i * (w / data.length) + (w / data.length - barPadding) / 2 ) - 6
-        });
-        */
+     
 })
 .catch( error => console.log("Error: " + error) );
-
-
-// HEADER
-d3.json("http://127.0.0.1:8000/data/latest-simple-weather-header.json").then( function(data) {
-    return data;
-})
-.then(function(d) {
-    // label
-    d3.select("body") 
-      .selectAll("h4")
-      .data(d)
-      .enter() 
-      .append("h4")
-      .text(function(d) {
-	   return d;
-       })
-})
-.catch( error => console.log("Error: " + error) );
-
 
