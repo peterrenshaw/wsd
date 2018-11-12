@@ -60,16 +60,7 @@ d3.json("http://127.0.0.1:8000/data/latest-simple-weather.json").then( function(
                 'hour':  hourFormater(hour)};
 
     }
-  
-    //--------
-    // TODO - sort this out at data source
-    //        is ordered by date sequence
-    // 
-    // need data 'cause 
-    // source data is in 
-    // datetime sequence!
-    //--------
-    return d.reverse();
+    return d;
 })
 .then( function (data) {
     var w = 800;

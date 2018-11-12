@@ -10,8 +10,8 @@
 #           a) GET latest report
 #           ./ws.py -g 
 #   
-#           b) EXTRACT and simplifiy
-#           ./ws.py -e -s
+#           b) EXTRACT, simplifiy and reverse data order (backwards)
+#           ./ws.py -e -s -b
 #
 #       DATA FILES
 #       the data files 'latest-weather-simple' and 'latest-weather-complex' 
@@ -74,7 +74,7 @@
     echo "$SCRIPT_NAME start"
     PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
     $PYVER $CODE_PATH/wsd.py -g
-    $PYVER $CODE_PATH/wsd.py -e -s
+    $PYVER $CODE_PATH/wsd.py -e -s -b
     echo "$PRODUCT_NAME called"
     echo "$SCRIPT_NAME stop"
     #--------

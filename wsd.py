@@ -4,15 +4,23 @@
 
 #========
 # name: ws.py
-# date: 2018NOV02
-#       2018NOV01
-#       2018OCT30
-#       2018OCT27
+# date: 2018NOV13
 # prog: pr
 # desc: grab your local BOM data & save to file, simplify data if needed
 #       save as json to new (web) directory for use.
 #       
 #       WSD ☀️🌤️🌦️🌧️
+#
+#       2018NOV13
+#       create option to reverse data order to compensate for data that 
+#       is ordered. this is important, especially if in the case of 
+#       weather data that is date ordered. Only available if you 
+#       extract and simplify. Usage below.
+#
+#            ./ws.py -e -s -b
+#       
+#       the option is only available using -e and -s
+#
 #
 #       2018NOV06
 #       add rain_trace to data processing. allows weather.js to rain
@@ -85,14 +93,18 @@
 #
 #       create JSON data file
 #           ./ws.py -n -t 'melbourne airport' -f "json" -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
-#       get
+#       GET
 #           ./ws.py -g
-#       extract
+#
+#
+#       EXTRACT
 #           ./ws.py -e 
 #       rename
 #           ./ws.py -e -r
-#       simplify
+#       SIMPLIFY
 #           ./ws.py -e -s 
+#       backwards
+#           ./ws.py -e -s -b
 #
 #       debug
 #           ./ws.py -d
@@ -185,6 +197,7 @@ def main():
     parser.add_option("-e", "--extract", dest="extract",  action="store_true", help="extract the good bits")
     parser.add_option("-s", "--simplify", dest="simplify", action="store_true", help="simplify extaction, remove unwanted data fields")
     parser.add_option("-r", "--rename", dest="rename", action="store_true", help="rename the extracted file to ^yyymmmddThh^ format")
+    parser.add_option("-b", "--backwards", dest="backwards", action="store_true", help="reverse option for data collected, reverse the data order")
     options, args = parser.parse_args()
 
 
@@ -235,7 +248,7 @@ def main():
         if options.debug:
             print("create configuration")
             print("<{}>".format(data))
-            
+ 
         # convert to JSON, save config
         with open(CDFPN, 'w') as f:
             json.dump(data, f, 
@@ -246,7 +259,6 @@ def main():
         sys.exit(0)
 
     elif options.extract:
-
         if os.path.isfile(WDFPN):
             if options.debug:
                 print("extract from <{}>".format(WDFPN))
@@ -263,7 +275,7 @@ def main():
             # easy manipulation
             pyd = json.loads(data)
 
- 
+
             #--------
             # extract good bits:
             #     this is hard-coded for the BOM weather data
@@ -346,7 +358,17 @@ def main():
             d = data
             #--------
 
- 
+          
+            #--------
+            # does the data need to be reversed?
+            # this option grabs the list and 
+            # reverses the order so it is backwards.
+            if options.backwards:
+                d.reverse()
+                if options.debug:
+                    print("{}\n{}\n{}".format(len(d), d[0], d[len(d)-1]))
+
+
             #--------
             # build file name:
             #     SPECIFIC (-r, rename option. takes no options formats as yyyymmmddThh

@@ -4,11 +4,24 @@
 
 
 TODO
-* cron: set up cron
-        document 
-* d3:   title, description
-        work out axes
+* cron: document 
+* d3:   work out axes
         how to show data values 
+
+
+2018NOV13
+* updated wr.sh so that cron calls this script every contrab.cron period.
+
+* yesterdays idea is BS. So I created an option to reverse data order 
+  to compensate for data that is ordered. this is important, especially 
+  if in the case of weather data that is date ordered. Only available if 
+  you extract and simplify. Usage below.
+
+  ./ws.py -e -s -b
+
+* why do this? it is easier and faster to pre-process the data and display
+  the data in JavaScript as is. I can confirm the sort order change because 
+  the source data has a sort_order field from the RMDB.
 
 2018NOV12
 * found the data source was coming in backwards, do the temps got colder
