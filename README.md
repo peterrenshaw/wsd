@@ -9,6 +9,23 @@ TODO
         how to show data values 
 
 2018DEC01
+* <generate.lst2int> (extract list data, convert to integer) and has problem if less than what 
+  is expected so a fix to lst2int means the problem of extracting from reduced string is handled and warning issued
+
+    ./generate.py -s '2018nov30T16' -f 5 -u second
+
+* extracing datetime components from '2018nov30T16' for example decomposes to:
+
+    year:       2018
+    month:      nov
+    day:        30
+    hour:       --
+    minute:     --
+    seconds:    --
+
+  so above fix makes sure the func  <generate.lst2int> is called and handles
+  less information.
+
 * solving problem in <generate.py>:
 
    decomposing string to time components
