@@ -9,6 +9,9 @@ TODO
         how to show data values 
 
 
+2018NOV30
+* new tool to create date data <generate.py>
+
 2018NOV13
 * updated wr.sh so that cron calls this script every contrab.cron period.
 
