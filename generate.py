@@ -33,7 +33,7 @@ import os
 import sys
 import time
 import datetime
-
+from ast import literal_eval
 from optparse import OptionParser
 
 
@@ -58,12 +58,34 @@ def main():
 
 
     if options.range:
-        print("r=<{}>".format(options.range))
+        # using the abstract syntax tree
+        # to interpret py from a string  
+        r = literal_eval(options.range)
+
+        print("r=<{}> ({})".format(r, len(r)))
+        # is length ok
+        if not len(r) == 2:
+            sys.stderr.write("\nError: please supply valid range: [2018, 2019]")
+
+        # I expect two valid dates in a list
+        start = r[0]
+        end = r[1]
+        print("start <{}> end <{}>".format(start, end))
+       
+
+        if options.json:
+            print("output to json")
+        else:
+            print("output as py")
     elif options.start and options.frequency:
         print("s=<{}> f=<{}>".format(options.start, options.frequency))
+
+        if options.json:
+            print("output to json")
+        else:
+            print("output as py")
     else:
-        pass
-    parser.print_help()      
+        parser.print_help()      
   
 
 
