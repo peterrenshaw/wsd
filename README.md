@@ -13,6 +13,8 @@ TODO
 * new tool to create date data <generate.py> to solve the problem of specific 
   date data used to play/work with D3 so I can learn more on formatting axis
 
+* created instead of installing python Panda which is a monster install
+
 2018NOV13
 * updated wr.sh so that cron calls this script every contrab.cron period.
 
