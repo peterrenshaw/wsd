@@ -8,6 +8,14 @@ TODO
 * d3:   work out axes
         how to show data values 
 
+2018DEC01
+* solving problem in <generate.py>:
+
+   decomposing string to time components
+   building time from string
+   changing time using timedeltas
+
+* these become the ideas, tools to build multiple timestamps 
 
 2018NOV30
 * new tool to create date data <generate.py> to solve the problem of specific 
