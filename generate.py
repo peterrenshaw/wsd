@@ -54,7 +54,15 @@ def main():
     parser.add_option("-j", "--json",  dest="json",
                                        action="store_true",
                                        help="convert data to JSON format")
+    options, args = parser.parse_args()
 
+
+    if options.range:
+        print("r=<{}>".format(options.range))
+    elif options.start and options.frequency:
+        print("s=<{}> f=<{}>".format(options.start, options.frequency))
+    else:
+        pass
     parser.print_help()      
   
 
