@@ -57,17 +57,22 @@ def mmm2num(mmm, months=DATE_MONTH):
         else:
             return 0
     else:
-         sys.stderr.write("\nError: mmm2num input failure. Could not find mmm <{}>".format(mmm))
+        sys.stderr.write("\nWarning: mmm2num input failure. Could not find mmm <{}>\n".format(mmm))
 def lst2int(data, start, end):
     """extract list data, convert to integer"""
     if data:
-        if start >= 0 and end <= len(data):
-            d = data[start:end]
-            return int(d)
+        len_d = len(data)
+        # start and end inside length of data?
+        if start >= 0 and start <= len_d and end >=0 and end <= len_d:
+            if start >= 0 and end <= len(data):
+                d = data[start:end]
+                return int(d)
+            else:
+                sys.stderr.write("\nWarning: lst2int start and end selection invalid start <{}> end <{}>\n".format(start, end))
         else:
-            sys.stderr.write("\nError: lst2int start and end selection invalid start <{}> end <{}>".format(start, end))
+            sys.stderr.write("\nWarning: lst2int start<{}> and end<{}> not inside len<{}>\n".format(start, end, len_d))
     else:
-        sys.stderr.write("\nError: lst2int has no valid input data")
+        sys.stderr.write("\nWarning: lst2int has no valid input data\n")
 def ex_dt(dt_str):
     """extract date from string"""
     dtd = {}
@@ -98,22 +103,21 @@ def ex_dt(dt_str):
         return dtd
 def create_dt(dtd):
     """given dict of date info, create a date"""
-    
     dt = datetime.datetime(dtd['year'], dtd['month'], dtd['day'])
   
     # timedelta
-    if dtd['hour']:
+    if 'hour' in dtd:
         h = datetime.timedelta(hours=dtd['hour'])
         dt = dt + h
-        print("hour=<{}> td=<{}>".format(h, dt.hour))
-    if dtd['minute']:
+        #print("hour=<{}> td=<{}>".format(h, dt.hour))
+    if 'minute' in dtd:
         m = datetime.timedelta(minutes=dtd['minute'])
         dt = dt + m
-        print("minute=<{}> td=<{}>".format(m, dt.minute))
-    if dtd['second']:
+        #print("minute=<{}> td=<{}>".format(m, dt.minute))
+    if 'second' in dtd:
         s = datetime.timedelta(seconds=dtd['second'])
         dt = dt + s
-        print("seconds=<{}> td=<{}>".format(s, dt.second))
+        #print("seconds=<{}> td=<{}>".format(s, dt.second))
         
      
     return dt    
