@@ -16,12 +16,14 @@ TODO
 
 * extracing datetime components from '2018nov30T16' for example decomposes to:
 
-> year:       2018
-> month:      nov
-> day:        30
-> hour:       --
-> minute:     --
-> seconds:    --
+```
+  year:       2018
+  month:      nov
+  day:        30
+  hour:       --
+  minute:     --
+  seconds:    --
+```
 
   so above fix makes sure the func  <generate.lst2int> is called and handles
   less information.
