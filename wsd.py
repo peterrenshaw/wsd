@@ -115,6 +115,14 @@
 #========
 
 
+__url__ = "https://github.com/peterrenshaw/wsd"
+__email__ = "peterrenshaw@seldomlogical.com"
+__author__="Peter RENSHAW"
+__license__="GNU GPL 3.0"
+__version__="0.2.5"
+__description__="""grab your local BOM data & save to file, simplify data if needed save as json to new (web) directory for use"""
+
+
 import os
 import sys
 import json
