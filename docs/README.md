@@ -6,9 +6,14 @@
 TODO
 * cron: document 
 * d3:   work out axes
-        how to show data values 
+        how to show data values
+* auto install of latest version of python requests 
 
 2018DEC01
+* docs/
+  move all README, ABOUT, LICENCE to docs
+* build setup.py, __init__.py
+
 * tools.py hack. recode inline to functions so I can re-use and make the tool do things I expect
 ```
    save data to json
