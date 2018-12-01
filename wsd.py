@@ -134,7 +134,7 @@ import requests  # pip3 import requests
 from requests import get
 
 
-VERSION = "0.2"
+VERSION = __version__
 PROG_NAME = "WEATHER STATION DATA (WSD)"
 BASE_PATH = "/Users/pr/work/code/"
 CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
