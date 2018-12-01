@@ -18,7 +18,7 @@ __url__ = 'https://github.com/peterrenshaw/wsd'
 __description__ = """grab your local BOM data & save to file, simplify data if needed save as json to new (web) directory for use"""
 
 
-__all__ = ['tools','generate','wsd']
+__all__ = ['config','tools','generate','wsd']
 
 
 # vim: ff=unix:ts=4:sw=4:tw=78:noai:expandtab
