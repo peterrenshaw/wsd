@@ -10,6 +10,10 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC01
+* setup.py done: 
+
+```sudo python3 setup.py install```
+ 
 * docs/
   move all README, ABOUT, LICENCE to docs
 * build setup.py, __init__.py

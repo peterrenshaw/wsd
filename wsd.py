@@ -90,7 +90,6 @@
 #           <http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json>
 #                                  
 # usge: 
-#
 #       create JSON data file
 #           ./ws.py -n -t 'melbourne airport' -f "json" -u http://www.bom.gov.au/fwo/IDV60801/IDV60801.94866.json
 #       GET
@@ -111,7 +110,7 @@
 #       help
 #           ./ws.py -h
 # uses:
-#       requests
+#       python requests library
 #========
 
 
