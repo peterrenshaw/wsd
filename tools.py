@@ -35,11 +35,11 @@ def str2json(data, is_pretty=True,
                    is_sort_key=True):
     """given string data, convert to JSON with options"""
     if is_pretty:
-        jd  = json.dumps(d, ensure_ascii=is_ascii,
-                            indent=is_indent,
-                            sort_keys=is_sort_key)
+        jd  = json.dumps(data, ensure_ascii=is_ascii,
+                               indent=is_indent,
+                               sort_keys=is_sort_key)
     else:
-        jd = json.dumps(d)
+        jd = json.dumps(data)
     return jd
 def build_fn(filename, ext="json", default_fn="stupid_forgot_filename"):
     """given a filename (assume valid), create a filename with extension"""
