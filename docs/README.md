@@ -10,10 +10,9 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC01
+* config updated in <config.py> and <wsd.py>
 * <config.py> added
-
 * moved functions from <generate.py> to <tools.py>
-
 * <setup.py> done: 
 
 ```sudo python3 setup.py install```

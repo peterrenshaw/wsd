@@ -21,11 +21,10 @@ from ast import literal_eval
 from optparse import OptionParser
 
 
-
-STRF_DATE_FMT_YYYYMMMDD = "%Y%b%dT%H:%M.%S"
-DATE_FORMAT_YYYYMMMDD = "YYYYMMMDDTHH:MM.SS"
-DATE_MONTH = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
-DATE_UNIT = ['year', 'month', 'day', 'hour', 'minute', 'second']
+from config import DATE_UNIT
+from config import DATE_MONTH
+from config import DATE_FORMAT_YYYYMMMDD
+from config import STRF_DATE_FMT_YYYYMMMDD
 
 
 #--------

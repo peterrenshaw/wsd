@@ -134,18 +134,21 @@ import requests  # pip3 import requests
 from requests import get
 
 
+from config import PROG_NAME
+from config import BASE_PATH
+from config import CONF_DATA_FILE
+from config import WEATHER_DATA_ALL_FN
+from config import WEATHER_DATA_SIMPLE_FN
+from config import WEATHER_DATA_SIMPLE_HEAD_FN
+
+
+#--------- keep here ---------
 VERSION = __version__
-PROG_NAME = "WEATHER STATION DATA (WSD)"
-BASE_PATH = "/Users/pr/work/code/"
 CODE_PATH = os.path.join(BASE_PATH, "py/wsd")
 DEST_PATH = os.path.join(BASE_PATH, "d3")  #TODO: optional save to argument directory
-CONF_DATA_FILE = 'config.json'
-WEATHER_DATA_ALL_FN = 'latest-full-weather.json'
-WEATHER_DATA_SIMPLE_FN = 'latest-simple-weather.json'
-WEATHER_DATA_SIMPLE_HEAD_FN = 'latest-simple-weather-header.json'    
-
 CDFPN = os.path.join(CODE_PATH, CONF_DATA_FILE)
 WDFPN = os.path.join(DEST_PATH, WEATHER_DATA_ALL_FN)
+#--------- keep here ---------
 
 
 #--------
