@@ -117,26 +117,28 @@ def main():
     # string to json
     #-------- 
     if options.datastring:
+
+        #--------
+        # generate data
+        if options.json:
+            # TODO should not have to do this
+            if options.pretty: is_pretty = True
+            else: is_pretty = False
+            d = str2json(options.datastring, is_pretty)
+        else:
+            d = options.datastring
+ 
+
         #--------
         # save data to file?
         if options.filename:                
-            # not json, allow ext
+            # json? ok filename has extension 
             if options.json:
-                # TODO should not have to do this
-                if options.pretty: is_pretty = True
-                else: is_pretty = False
-                print("is pretty <{}>".format(is_pretty)) 
-
-                # build filename and generate data
+                # build filename
                 fn = build_fn(options.filename)
-                d = str2json(options.datastring, is_pretty)
-                print("<{}> json is pretty <{}> and data={}".format(fn, is_pretty, d)) 
-
-            else:
+            else: #not json? plz supply an ext
                 if options.ext:
                     fn = build_fn(options.filename, ext=options.ext)
-                    d = options.datastring
-                    print("<{}> data={}".format(fn, options.datastring)) 
                 else: 
                     sys.stderr.write("Error: didn't choose JSON? please supply a filename extension.")
                     sys.exit(1)
@@ -144,13 +146,15 @@ def main():
             # build fnp from fp and fn
             if options.dirpath:
                 fpn = build_fpn(options.dirpath, fn)
-                print("fd=<{}> fn=<{}> fnp=<{}>".format(fp, fn, fpn))
             else:
                 fpn = fn
 
             save(fpn, d)
         else:
-            print(jd)
+            # don't specify a filename?
+            # so what redirect to a file
+            print(d)
+
         sys.exit(0)
        
         #--------
