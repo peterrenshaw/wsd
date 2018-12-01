@@ -51,7 +51,7 @@ def build_fpn(fp, fn):
     given a filepath (will test valid) and a filename (assume valid), 
     build valid directory filepath name
     """
-    if directoryname:
+    if fp
         if os.path.isdir(fp):
             fpn = os.path.join(fp, fn)
         else:
