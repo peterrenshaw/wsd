@@ -35,7 +35,7 @@ def str2json(data, is_pretty=True,
                    is_sort_key=True):
     """given string data, convert to JSON with options"""
     if is_pretty:
-        jd  = json.dumps(data, ensure_ascii=is_ascii,
+        jd  = json.dumps(data, ensure_ascii=is_ensure_ascii,
                                indent=is_indent,
                                sort_keys=is_sort_key)
     else:
