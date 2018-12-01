@@ -43,8 +43,11 @@ from optparse import OptionParser
 STRF_DATE_FMT_YYYYMMMDD = "%Y%b%dT%H:%M.%S"
 DATE_FORMAT_YYYYMMMDD = "YYYYMMMDDTHH:MM.SS"
 DATE_MONTH = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+DATE_UNIT = ['year', 'month', 'day', 'hour', 'minute', 'second']
 
-
+#--------
+# description: tools to decompose strings and build dates 
+#--------
 def is_dt_fmt(dt, dt_format=DATE_FORMAT_YYYYMMMDD):
     """is supplied date in date format?"""
     return True
@@ -55,7 +58,7 @@ def mmm2num(mmm, months=DATE_MONTH):
         if m in months:
             return months.index(m) + 1
         else:
-            return 0
+            sys.stderr.write("\nWarning: mmm2num Could not find mmm <{}> in {}\n".format(mmm, months))
     else:
         sys.stderr.write("\nWarning: mmm2num input failure. Could not find mmm <{}>\n".format(mmm))
 def lst2int(data, start, end):
@@ -74,54 +77,73 @@ def lst2int(data, start, end):
     else:
         sys.stderr.write("\nWarning: lst2int has no valid input data\n")
 def ex_dt(dt_str):
-    """extract date from string"""
+    """decomposition: extract date from string"""
     dtd = {}
     if is_dt_fmt(dt_str):
         # yyyymmmddThh:mm.ss 
         # 123456789012345678
+
+        # YEAR
         year = lst2int(dt_str, 0, 4)
         if year: dtd['year'] = year
 
+        # MONTH
         # convert string MMM to integer 00
         month = mmm2num(dt_str[4:7])
         if month >= 0 and month <= 12: dtd['month'] = month
 
+        # DAY
         day = lst2int(dt_str, 7, 9)
         if day: dtd['day'] = day
 
+        # HOUR
         hour = lst2int(dt_str, 10, 12)
         if hour: dtd['hour'] = hour
         
+        # MINUTE
         minute = lst2int(dt_str, 13, 15)
         if minute: dtd['minute'] = minute
 
+        # SECOND
         second = lst2int(dt_str, 16, 18)
         if second: dtd['second'] = second
         
         return dtd
     else:
         return dtd
+def new_dt_delta_week(dtd):
+    if 'week' in dtd: return datetime.timedelta(weeks=dtd['week'])
+    else:  sys.stderr.write("\nWarning: new_dt_delta_week has no valid data <{}>\n".format(dtd))
+def new_dt_delta_day(dtd):
+    if 'day' in dtd: return datetime.timedelta(days=dtd['day'])
+    else: sys.stderr.write("\nWarning: new_dt_delta_day has no valid data <{}>\n".format(dtd))
+def new_dt_delta_hour(dtd):
+    if 'hour' in dtd: return datetime.timedelta(hours=dtd['hour'])
+    else: sys.stderr.write("\nWarning: new_dt_delta_hour has no valid data <{}>\n".format(dtd))
+def new_dt_delta_minute(dtd):
+    if 'minute' in dtd: return datetime.timedelta(minutes=dtd['minute'])
+    else: sys.stderr.write("\nWarning: new_dt_delta_minute has no valid data <{}>\n".format(dtd))
+def new_dt_delta_second(dtd):
+    if 'second' in dtd: return datetime.timedelta(seconds=dtd['second'])
+    else: sys.stderr.write("\nWarning: new_dt_delta_second has no valid data <{}>\n".format(dtd))
 def create_dt(dtd):
     """given dict of date info, create a date"""
-    dt = datetime.datetime(dtd['year'], dtd['month'], dtd['day'])
-  
-    # timedelta
-    if 'hour' in dtd:
-        h = datetime.timedelta(hours=dtd['hour'])
-        dt = dt + h
-        #print("hour=<{}> td=<{}>".format(h, dt.hour))
-    if 'minute' in dtd:
-        m = datetime.timedelta(minutes=dtd['minute'])
-        dt = dt + m
-        #print("minute=<{}> td=<{}>".format(m, dt.minute))
-    if 'second' in dtd:
-        s = datetime.timedelta(seconds=dtd['second'])
-        dt = dt + s
-        #print("seconds=<{}> td=<{}>".format(s, dt.second))
-        
-     
-    return dt    
-
+    if 'year' in dtd and 'month' in dtd and 'day' in dtd:
+        return datetime.datetime(dtd['year'], dtd['month'], dtd['day'])
+    else:  sys.stderr.write("\nWarning: create_dt has no valid data <{}>\n".format(dtd))
+def new_delta_time(dtd):
+    """given datetime, add deltatime if found"""
+    dt = new_dt_delta_day(dtd)
+    dt = dt + new_dt_delta_hour(dtd)
+    dt = dt + new_dt_delta_minute(dtd)
+    dt = dt + new_dt_delta_second(dtd)
+    return dt
+def is_unit(unit, units=DATE_UNIT):
+    """is the datetime unit found in definition?"""
+    if unit:
+        if unit.lower() in units:
+            return True
+    return False
 
 #======
 # main: cli entry point
@@ -133,19 +155,23 @@ def main():
                                        help="start date to work with")
     parser.add_option("-f", "--frequency", dest="frequency", 
                                        help="number of data points from start")
+    parser.add_option("-i", "--interval", dest="interval",
+                                       help="sample at I interval times with U units")
     parser.add_option("-r", "--range", dest="range",
-                                       help="range of interval from start")
+                                       help="range R of interval from start")
     parser.add_option("-u", "--unit",  dest="unit",
-                                       help="unit of interval")
+                                       help="unit U of I interval")
     parser.add_option("-t", "--template", dest="template",
-                                       help="template string using C, printf formatting")
+                                       help="display show as template string using C, printf formatting")
     parser.add_option("-j", "--json",  dest="json",
                                        action="store_true",
                                        help="convert data to JSON format")
     options, args = parser.parse_args()
 
 
-    if options.range:
+    if options.range and options.unit and options.interval:
+        print("r=<{}> f=<{}> u=<{}> i=<{}>".format(options.range, options.frequency, options.unit, options.interval))
+
         # using the abstract syntax tree
         # to interpret py from a string  
         r = literal_eval(options.range)
@@ -165,16 +191,38 @@ def main():
             print("output to json")
         else:
             print("output as py")
-    elif options.start and options.frequency and options.unit:
-        print("s=<{}> f=<{}> u=<{}>".format(options.start, options.frequency, options.unit))
+    elif options.start and options.frequency and options.unit and options.interval:
+        print("s=<{}> f=<{}> u=<{}> i=<{}>".format(options.start, options.frequency, options.unit, options.interval))
 
+        # build data
         dtd = ex_dt(options.start)
         print("dtd=<{}>".format(dtd))
 
-
+        # create start datetime
         dt = create_dt(dtd)
         print("dt=<{}>".format(dt))
 
+        # update deltatime
+        deltatime = new_delta_time(dtd)
+        print("delta=<{}>".format(deltatime))
+
+        # date plus deltatime
+        dt = dt + deltatime
+        print("new dt=<{}>".format(dt))
+
+        # repeat another datetime this amount
+        print("f=<{}>".format(options.frequency))
+        # repeat another datetime with this deltatime
+        if is_unit(options.unit):
+            unit = options.unit
+            print("u=<{}>".format(unit))
+        else:
+            sys.stderr.write("\nWarning: units cannot be determined <{}>\n".format(options.unit))
+            sys.exit(1)
+
+        
+   
+        # output to JSON?
         if options.json:
             print("output to json")
         else:
