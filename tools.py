@@ -105,7 +105,7 @@ def main():
         if options.filename:
             fn = build_fn(options.filename)
             fpn = build_fpn(options.directory, fn)
-            save(fpn jd)
+            save(fpn, jd)
         else:
             print(jd)
         sys.exit(0)
