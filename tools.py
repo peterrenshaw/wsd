@@ -25,22 +25,43 @@ def str2py(data):
     """
     ==== WARNING: DANGEROUS ==== 
     convert unfiltered input string from CLI to python executable code
+    documentation suggests otherwise, does this work against malicious users?
+    <https://docs.python.org/3/library/ast.html?highlight=ast#ast.literal_eval>
     ==== WARNING: DANGEROUS ==== 
     """
-    if data: return literal_eval(data)
-    else: return None
-def str2json(data, is_pretty=True, 
-                   is_ensure_ascii=False,
-                   is_indent=4,
-                   is_sort_key=True):
-    """given string data, convert to JSON with options"""
-    if is_pretty:
-        jd  = json.dumps(data, ensure_ascii=is_ensure_ascii,
-                               indent=is_indent,
-                               sort_keys=is_sort_key)
+    if data:
+        try: 
+            pd = literal_eval(data)
+        except SyntaxError as err:
+            sys.stderr.write("Syntax Error: str2py data supplied not converted using str2py.\nError is <{}>\n".format(err))
+            sys.stderr.write("Warning: <{}>\n".format(data))
+            sys.stderr.write("Suggestion: error in string supplied needs to be corrected and valid.\n")
+            sys.exit(1)
+        else:
+            pass
+        return pd
     else:
-        jd = json.dumps(data)
-    return jd
+        return None
+def str2json(data, is_pretty):
+    """given string data, convert to JSON with options"""
+    # we want python structure not string
+    d = str2py(data)
+    if not d:
+        sys.stderr.write("Error: str2json data supplied not converted using str2py.\n")
+        sys.exit(1)
+    else:
+        if is_pretty:
+           jd  = json.dumps(d, ensure_ascii=True, 
+                               indent=4,
+                               sort_keys=True)
+        else:
+           jd = json.dumps(d)
+
+        return jd
+def build_ext(ext, default="txt"):
+    """build 3 letter ext without dots"""
+    if len(ext) == 3: return ext.lower()
+    else: return default.lower()
 def build_fn(filename, ext="json", default_fn="stupid_forgot_filename"):
     """given a filename (assume valid), create a filename with extension"""
     if not filename:
@@ -64,7 +85,7 @@ def save(fpn, data):
     """given valid filepathname and data, save to file"""
     if fpn: # assume valid, pre-tested
         with open(fpn, 'w') as f:
-            f.write(jd)
+            f.write(data)
         f.close()
         return True
     else:
@@ -77,13 +98,17 @@ def save(fpn, data):
 def main():
     usage = "usage %prog -u -t"
     parser = OptionParser(usage)
-    parser.add_option("-j", "--json", dest="json", 
+    parser.add_option("-s", "--datastring", dest="datastring",
+                                      help="supply data string to parse")
+    parser.add_option("-j", "--json", action="store_true", dest="json", 
                                       help="jsonify the data from the command line")
+    parser.add_option("-e", "--ext",  dest="ext", 
+                                      help="allow for filename extension when not saving as json")
     parser.add_option("-p", "--pretty", action="store_true", dest="pretty", 
                                         help="make the data easier to read")
     parser.add_option("-f", "--filename", dest="filename",
                                           help="supply a filename to save data to file")
-    parser.add_option("-d", "--directory", dest="directory", 
+    parser.add_option("-d", "--dirpath", dest="dirpath", 
                                            help="supply directory to save file")  
     options, args = parser.parse_args()
 
@@ -91,30 +116,51 @@ def main():
     #--------
     # string to json
     #-------- 
-    if options.json:
-        # using the abstract syntax tree to interpret py from a string  
-        data = str2py(options.json)
-      
-        #---------
-        # data format:
-        #     convert data to json, making sure it's easy to read
-        jd = str2json(data, is_pretty=options.pretty)
-
+    if options.datastring:
         #--------
-        # save json data to file?
-        if options.filename:
-            fn = build_fn(options.filename)
-            fpn = build_fpn(options.directory, fn)
-            save(fpn, jd)
+        # save data to file?
+        if options.filename:                
+            # not json, allow ext
+            if options.json:
+                # TODO should not have to do this
+                if options.pretty: is_pretty = True
+                else: is_pretty = False
+                print("is pretty <{}>".format(is_pretty)) 
+
+                # build filename and generate data
+                fn = build_fn(options.filename)
+                d = str2json(options.datastring, is_pretty)
+                print("<{}> json is pretty <{}> and data={}".format(fn, is_pretty, d)) 
+
+            else:
+                if options.ext:
+                    fn = build_fn(options.filename, ext=options.ext)
+                    d = options.datastring
+                    print("<{}> data={}".format(fn, options.datastring)) 
+                else: 
+                    sys.stderr.write("Error: didn't choose JSON? please supply a filename extension.")
+                    sys.exit(1)
+
+            # build fnp from fp and fn
+            if options.dirpath:
+                fpn = build_fpn(options.dirpath, fn)
+                print("fd=<{}> fn=<{}> fnp=<{}>".format(fp, fn, fpn))
+            else:
+                fpn = fn
+
+            save(fpn, d)
         else:
             print(jd)
         sys.exit(0)
-
-    # what? display help
+       
+        #--------
+        # need data
     else:
-        parser.print_help()      
-  
-
+        parser.print_help()     
+        sys.stderr.write("Error: no data to parse, please supply some.")
+        sys.exit(1)
+ 
+ 
 
 if __name__ == "__main__":
     main()
