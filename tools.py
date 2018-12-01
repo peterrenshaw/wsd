@@ -70,7 +70,7 @@ def build_fn(filename, ext="json", default_fn="stupid_forgot_filename"):
 def build_fpn(fp, fn):
     """
     given a filepath (will test valid) and a filename (assume valid), 
-    build valid directory filepath name
+    build valid directory file path name
     """
     if fp:
         if os.path.isdir(fp):
