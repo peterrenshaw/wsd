@@ -10,12 +10,12 @@ TODO
 
 2018DEC01
 * tools.py hack. recode inline to functions so I can re-use and make the tool do things I expect
-
-   save to json
-   save to json and pretty print
-   save as text, supply an extension
-   redirect to console as json or text
-
+```
+   save data to json
+   save data to json and pretty print
+   save data as text, supply an extension
+   redirect results to console as json or text
+```
 * <generate.lst2int> (extract list data, convert to integer) and has problem if less than what 
   is expected so a fix to lst2int means the problem of extracting from reduced string is handled and warning issued
 

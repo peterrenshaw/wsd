@@ -134,7 +134,6 @@ def main():
         if options.filename:                
             # json? ok filename has extension 
             if options.json:
-                # build filename
                 fn = build_fn(options.filename)
             else: #not json? plz supply an ext
                 if options.ext:
@@ -152,14 +151,13 @@ def main():
             save(fpn, d)
         else:
             # don't specify a filename?
-            # so what redirect to a file
+            # so what, redirect to a file
             print(d)
 
         sys.exit(0)
-       
-        #--------
-        # need data
     else:
+        #--------
+        # what? can't be bothered to supply data to code, try again.
         parser.print_help()     
         sys.stderr.write("Error: no data to parse, please supply some.")
         sys.exit(1)
