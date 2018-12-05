@@ -10,6 +10,8 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC05
+* clean up code tools.py, se.py
+
 * results: on the command line lets do the following: 
   Generate data from start date to end date at hourly intervals in json format.
 
