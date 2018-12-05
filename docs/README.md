@@ -9,6 +9,17 @@ TODO
         how to show data values
 * auto install of latest version of python requests 
 
+2018DEC05
+* reduce complexity by breaking tools into smaller pieces
+
+``
+  generate.py (lots of switches, 2 different functions)
+      |
+      V
+  generate/se.py   (generate start to end datetimes)
+  generate/si.py   (generate start with intervals)
+``` 
+
 2018DEC01
 * config updated in <config.py> and <wsd.py>
 * <config.py> added
