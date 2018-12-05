@@ -10,6 +10,51 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC05
+* results: on the command line lets do the following: 
+  Generate data from start date to end date at hourly intervals in json format.
+
+   start date:  December 4th, 2018
+   end date:    December 5th, 2018
+   interval:    1
+   unit:        hour
+   save:        yes (-j)
+
+```
+   ./se.py -s '2018DEC04' -e '2018DEC05' -i 1 -u h -j
+
+```
+    generates as a file
+
+```
+[
+    "20180004T00:00.00",
+    "20180004T01:00.00",
+    "20180004T02:00.00",
+    "20180004T03:00.00",
+    "20180004T04:00.00",
+    "20180004T05:00.00",
+    "20180004T06:00.00",
+    "20180004T07:00.00",
+    "20180004T08:00.00",
+    "20180004T09:00.00",
+    "20180004T10:00.00",
+    "20180004T11:00.00",
+    "20180004T12:00.00",
+    "20180004T13:00.00",
+    "20180004T14:00.00",
+    "20180004T15:00.00",
+    "20180004T16:00.00",
+    "20180004T17:00.00",
+    "20180004T18:00.00",
+    "20180004T19:00.00",
+    "20180004T20:00.00",
+    "20180004T21:00.00",
+    "20180004T22:00.00",
+    "20180004T23:00.00",
+    "20180005T00:00.00"
+]
+````
+
 * reduce complexity by breaking tools into smaller pieces
 
 ``

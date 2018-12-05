@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ~*~ encoding: utf-8 ~*~
 
 
@@ -11,6 +11,7 @@
 # 
 #       # known to work python 3.5
 #       $ python3 setup.py install
+#
 # reqr: Uses python requests installed to work
 #======
 

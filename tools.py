@@ -17,6 +17,7 @@
 import os
 import sys
 import json
+import datetime
 from ast import literal_eval
 from optparse import OptionParser
 
@@ -25,11 +26,48 @@ from config import DATE_UNIT
 from config import DATE_MONTH
 from config import DATE_FORMAT_YYYYMMMDD
 from config import STRF_DATE_FMT_YYYYMMMDD
+from config import DATE_TIME_STORE
 
 
 #--------
 # description: tools to decompose strings and build dates 
 #--------
+def dt_new_delta(interval, unit):
+    """create a new datetime delta"""
+    if interval:       
+        week = 0
+        day = 0
+        hour = 0
+        minute = 0
+        second = 0
+
+        unit = unit.lower()
+        if unit ==  'd':
+            day = int(interval)
+        elif unit == 'h':
+            hour = int(interval)
+        elif unit == 'm':
+            minute = int(interval)
+        elif unit == 's':
+            second = float(interval)
+        elif unit == 'w':
+            week = int(interval)
+        else:
+            sys.stderr.write("\nError: dt_new_delta did not supply valid unit <{}>\n".format(unit))
+            sys.exit(1)
+
+        d = datetime.timedelta(seconds=second,
+                               minutes=minute, 
+                               hours=hour,
+                               days=day,
+                               weeks=week) 
+
+        #print("delta=<{}>".format(d))
+        return d
+    else:
+        sys.stderr.write("\nError: dt_new_delta did not supply an interval <{}>\n".format(interval))
+        sys.exit(1)
+
 def is_dt_fmt(dt, dt_format=DATE_FORMAT_YYYYMMMDD):
     """is supplied date in date format?"""
     return True
@@ -68,6 +106,7 @@ def ex_dt(dt_str):
         # YEAR
         year = lst2int(dt_str, 0, 4)
         if year: dtd['year'] = year
+       
 
         # MONTH
         # convert string MMM to integer 00
@@ -81,45 +120,21 @@ def ex_dt(dt_str):
         # HOUR
         hour = lst2int(dt_str, 10, 12)
         if hour: dtd['hour'] = hour
+        else: dtd['hour'] = 0
         
         # MINUTE
         minute = lst2int(dt_str, 13, 15)
         if minute: dtd['minute'] = minute
+        else: dtd['minute'] = 0
 
         # SECOND
         second = lst2int(dt_str, 16, 18)
         if second: dtd['second'] = second
-        
-        return dtd
+        else: dtd['second'] = 0
+
+        return dtd 
     else:
         return dtd
-def new_dt_delta_week(dtd):
-    if 'week' in dtd: return datetime.timedelta(weeks=dtd['week'])
-    else:  sys.stderr.write("\nWarning: new_dt_delta_week has no valid data <{}>\n".format(dtd))
-def new_dt_delta_day(dtd):
-    if 'day' in dtd: return datetime.timedelta(days=dtd['day'])
-    else: sys.stderr.write("\nWarning: new_dt_delta_day has no valid data <{}>\n".format(dtd))
-def new_dt_delta_hour(dtd):
-    if 'hour' in dtd: return datetime.timedelta(hours=dtd['hour'])
-    else: sys.stderr.write("\nWarning: new_dt_delta_hour has no valid data <{}>\n".format(dtd))
-def new_dt_delta_minute(dtd):
-    if 'minute' in dtd: return datetime.timedelta(minutes=dtd['minute'])
-    else: sys.stderr.write("\nWarning: new_dt_delta_minute has no valid data <{}>\n".format(dtd))
-def new_dt_delta_second(dtd):
-    if 'second' in dtd: return datetime.timedelta(seconds=dtd['second'])
-    else: sys.stderr.write("\nWarning: new_dt_delta_second has no valid data <{}>\n".format(dtd))
-def create_dt(dtd):
-    """given dict of date info, create a date"""
-    if 'year' in dtd and 'month' in dtd and 'day' in dtd:
-        return datetime.datetime(dtd['year'], dtd['month'], dtd['day'])
-    else:  sys.stderr.write("\nWarning: create_dt has no valid data <{}>\n".format(dtd))
-def new_delta_time(dtd):
-    """given datetime, add deltatime if found"""
-    dt = new_dt_delta_day(dtd)
-    dt = dt + new_dt_delta_hour(dtd)
-    dt = dt + new_dt_delta_minute(dtd)
-    dt = dt + new_dt_delta_second(dtd)
-    return dt
 def is_unit(unit, units=DATE_UNIT):
     """is the datetime unit found in definition?"""
     if unit:
@@ -151,6 +166,17 @@ def str2py(data):
         return pd
     else:
         return None
+def py2json(data, is_pretty=True):
+    """convert py structure to json"""
+    if is_pretty:
+        jd  = json.dumps(data, 
+                         ensure_ascii=True, 
+                         indent=4,
+                         sort_keys=True)
+    else:
+       jd = json.dumps(data)
+    return jd
+
 def str2json(data, is_pretty):
     """given string data, convert to JSON with options"""
     # we want python structure not string
@@ -160,11 +186,9 @@ def str2json(data, is_pretty):
         sys.exit(1)
     else:
         if is_pretty:
-           jd  = json.dumps(d, ensure_ascii=True, 
-                               indent=4,
-                               sort_keys=True)
+           jd  = py2json(d, is_pretty=True)
         else:
-           jd = json.dumps(d)
+           jd = py2json(d, is_pretty=False)
 
         return jd
 def build_ext(ext, default="txt"):

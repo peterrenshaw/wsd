@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # ~*~ encoding: utf-8 ~*~
 
 
@@ -18,7 +18,7 @@ __url__ = 'https://github.com/peterrenshaw/wsd'
 __description__ = """grab your local BOM data & save to file, simplify data if needed save as json to new (web) directory for use"""
 
 
-__all__ = ['config','generate','tools','generate','wsd']
+__all__ = ['config','tools','docs','generate','wsd']
 
 
 # vim: ff=unix:ts=4:sw=4:tw=78:noai:expandtab
