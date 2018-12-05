@@ -73,7 +73,7 @@ from config import STRF_DATE_FMT_DEFAULT
 # main: cli entry point
 #======
 def main():
-    usage = "usage %prog -u -t"
+    usage = "usage %prog -s -e -i -u -f -j"
     parser = OptionParser(usage)
 
     #-------- start date, end date --------
