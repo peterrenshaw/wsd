@@ -59,7 +59,7 @@ TODO
 
 * reduce complexity by breaking tools into smaller pieces
 
-``
+```
   generate.py (lots of switches, 2 different functions)
       |
       V
