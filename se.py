@@ -63,7 +63,9 @@ from tools import ex_dt
 from tools import save
 from tools import py2json
 from tools import is_unit
-from tools import dt_new_delta 
+from tools import dt_new_date
+from tools import dt_new_delta
+
 
 from config import FILENAME_DEFAULT
 from config import STRF_DATE_FMT_DEFAULT
@@ -103,8 +105,8 @@ def main():
         dte = ex_dt(options.end)
 
         # create start date, end date
-        start = datetime.datetime(dts['year'],dts['month'],dts['day'],dts['hour'],dts['minute'],dts['second'])
-        end = datetime.datetime(dte['year'],dte['month'],dte['day'],dte['hour'],dte['minute'],dte['second'])
+        start = dt_new_date(dts)
+        end =  dt_new_date(dte)
 
         # create a new datetime delta OR fail
         d = dt_new_delta(options.interval, options.unit)

@@ -67,7 +67,17 @@ def dt_new_delta(interval, unit):
     else:
         sys.stderr.write("\nError: dt_new_delta did not supply an interval <{}>\n".format(interval))
         sys.exit(1)
-
+def dt_new_date(data):
+    """given dict of date, build a new date"""
+    # create new datetime from date dictionary
+    # TODO error handling on creating date
+    dt = datetime.datetime(data['year'],
+                           data['month'],
+                           data['day'],
+                           data['hour'],
+                           data['minute'],
+                           data['second'])
+    return dt
 def is_dt_fmt(dt, dt_format=DATE_FORMAT_YYYYMMMDD):
     """is supplied date in date format?"""
     return True

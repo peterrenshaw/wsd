@@ -10,6 +10,10 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC05
+* add tools.dt_new_date
+  read the date dictionary, build the date, return
+  no error handling (yet)
+
 * clean up code tools.py, se.py
 
 * results: on the command line lets do the following: 
