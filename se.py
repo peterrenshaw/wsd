@@ -3,7 +3,7 @@
 
 
 #========
-# name: generate.se.py
+# name: se.py
 # date: 2018DEC05
 #       2018NOV30
 # prog: pr
@@ -44,11 +44,9 @@
 #       json            convert to JSON
 #                           y/n
 #
-#       Future
-#       ------------------------------------------------------------
-#       template:       use c sprintf for template formatting output
+#       format:         use c sprintf from config for template formatting output
 #                           '%y/%m/%d'
-
+#
 #       
 #       WSD ☀️🌤️🌦️🌧️
 #========
@@ -121,7 +119,9 @@ def main():
         t = []
         cdt = start
 
-        # loop incrementing one day at time until time >= end time
+        # loop incrementing DELTA and add to time
+        # break on current datetime <= end time
+        # TODO no internal short circuit
         while cdt <= end:
 
             t.append(cdt.strftime(dtf))
