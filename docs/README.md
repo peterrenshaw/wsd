@@ -16,11 +16,11 @@ TODO
   Generate data from start date to end date at hourly intervals in json format.
 
 ```
-   start date:  December 4th, 2018
-   end date:    December 5th, 2018
-   interval:    1
-   unit:        hour
-   save:        yes (-j)
+   start date:  December 4th, 2018 (-s ...)
+   end date:    December 5th, 2018 (-e ...)
+   interval:    1                  (-i 1)
+   unit:        hour               (-u h)
+   save:        yes                (-j)
 ```
 
 ```
