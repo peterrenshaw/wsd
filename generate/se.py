@@ -3,30 +3,52 @@
 
 
 #========
-# name: generate.py
-# date: 2018NOV30
+# name: generate.se.py
+# date: 2018DEC05
+#       2018NOV30
 # prog: pr
 # desc: generate data (at the moment Dates) so I can quickly 
 #       work with known data to use in D3 understanding, testing. 
 #
 #       fail fast on invalid data
 #
-# src: <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>      
+#  src: <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>      
+# usge:
+#        #       start              end             intervals   units
+#        ---------------------------------------------------------------------
+#        ./se.py -s yyyymmmddThh    -e yyyymmmddThh -i 30       -u m   minutes
+#        
+#
+#        ./se.py -s yyyymmmdd       -e yyyymmmdd    -i 1        -u h   hours
+#
+#
+#        ./se.py -s yyyymmm         -e yyyymmm      -i 2        -u d   days
+#      
+#
 # optn:       
 #       start:          start date in known format
 #                           yyyymmmddThh:mm.ss
-#       frequency:      number of data points
-#                           N, integer of points 
-#            
+#       end:            end date in known format
 # 
-#       range:		range of data from start, end
-#                           [start, end]
+#       interval:       an interval in time b/w start and end dates with 
+#                       a numeric value and unit.
+#                           10
 #
-#       template:       use c sprintf for template formatting
-#                           '%y/%m/%d'
+#       unit:           interval unit
+#                           month      M
+#                           week       w
+#                           day        d 
+#                           hour       h most used
+#                           minute     m most used
 #
 #       json            convert to JSON
 #                           y/n
+#
+#       Future
+#       ------------------------------------------------------------
+#       template:       use c sprintf for template formatting output
+#                           '%y/%m/%d'
+
 #       
 #       WSD ☀️🌤️🌦️🌧️
 #========
@@ -36,14 +58,14 @@ import os
 import sys
 import time
 import datetime
-from ast import literal_eval
 from optparse import OptionParser
 
 
-from tools import ex_dt
-from tools import create_dt
-from tools import new_delta_time
-from tools import is_unit
+import wsd
+from wsd.tools import ex_dt
+from wsd.tools import create_dt
+from wsd.tools import new_delta_time
+from wsd.tools import is_unit
 
 
 #======
@@ -52,76 +74,30 @@ from tools import is_unit
 def main():
     usage = "usage %prog -u -t"
     parser = OptionParser(usage)
+
+    #-------- start date, end date --------
     parser.add_option("-s", "--start", dest="start", 
                                        help="start date to work with")
-    parser.add_option("-f", "--frequency", dest="frequency", 
+    parser.add_option("-e", "--end",   dest="frequency", 
                                        help="number of data points from start")
+
+    #-------- time interval and units of interval --------
     parser.add_option("-i", "--interval", dest="interval",
                                        help="sample at I interval times with U units")
-    parser.add_option("-r", "--range", dest="range",
-                                       help="range R of interval from start")
     parser.add_option("-u", "--unit",  dest="unit",
                                        help="unit U of I interval")
-    parser.add_option("-t", "--template", dest="template",
-                                       help="display show as template string using C, printf formatting")
+
+    #-------- output --------
     parser.add_option("-j", "--json",  dest="json",
                                        action="store_true",
                                        help="convert data to JSON format")
     options, args = parser.parse_args()
 
 
-    if options.range and options.unit and options.interval:
-        print("r=<{}> f=<{}> u=<{}> i=<{}>".format(options.range, options.frequency, options.unit, options.interval))
+    if options.start and options.end and options.unit and options.interval:
+        print("s=<{}> e=<{}>".format(options.start, options.end))
+        print("i=<{}> u=<{}>".format(options.interval, options.unit))
 
-        # using the abstract syntax tree
-        # to interpret py from a string  
-        r = literal_eval(options.range)
-
-        print("r=<{}> ({})".format(r, len(r)))
-        # is length ok
-        if not len(r) == 2:
-            sys.stderr.write("\nError: please supply valid range: [2018, 2019]")
-
-        # I expect two valid dates as list
-        start = r[0]
-        end = r[1]
-        print("start <{}> end <{}>".format(start, end))
-         
-
-        if options.json:
-            print("output to json")
-        else:
-            print("output as py")
-    elif options.start and options.frequency and options.unit and options.interval:
-        print("s=<{}> f=<{}> u=<{}> i=<{}>".format(options.start, options.frequency, options.unit, options.interval))
-
-        # build data
-        dtd = ex_dt(options.start)
-        print("dtd=<{}>".format(dtd))
-
-        # create start datetime
-        dt = create_dt(dtd)
-        print("dt=<{}>".format(dt))
-
-        # update deltatime
-        deltatime = new_delta_time(dtd)
-        print("delta=<{}>".format(deltatime))
-
-        # date plus deltatime
-        dt = dt + deltatime
-        print("new dt=<{}>".format(dt))
-
-        # repeat another datetime this amount
-        print("f=<{}>".format(options.frequency))
-        # repeat another datetime with this deltatime
-        if is_unit(options.unit):
-            unit = options.unit
-            print("u=<{}>".format(unit))
-        else:
-            sys.stderr.write("\nWarning: units cannot be determined <{}>\n".format(options.unit))
-            sys.exit(1)
-
-        
    
         # output to JSON?
         if options.json:
