@@ -231,73 +231,7 @@ def save(fpn, data):
 # main: cli entry point
 #======
 def main():
-    usage = "usage %prog -u -t"
-    parser = OptionParser(usage)
-    parser.add_option("-s", "--datastring", dest="datastring",
-                                      help="supply data string to parse")
-    parser.add_option("-j", "--json", action="store_true", dest="json", 
-                                      help="jsonify the data from the command line")
-    parser.add_option("-e", "--ext",  dest="ext", 
-                                      help="allow for filename extension when not saving as json")
-    parser.add_option("-p", "--pretty", action="store_true", dest="pretty", 
-                                        help="make the data easier to read")
-    parser.add_option("-f", "--filename", dest="filename",
-                                          help="supply a filename to save data to file")
-    parser.add_option("-d", "--dirpath", dest="dirpath", 
-                                           help="supply directory to save file")  
-    options, args = parser.parse_args()
-
-
-    #--------
-    # string to json
-    #-------- 
-    if options.datastring:
-
-        #--------
-        # generate data
-        if options.json:
-            # TODO should not have to do this
-            if options.pretty: is_pretty = True
-            else: is_pretty = False
-            d = str2json(options.datastring, is_pretty)
-        else:
-            d = options.datastring
- 
-
-        #--------
-        # save data to file?
-        if options.filename:                
-            # json? ok filename has extension 
-            if options.json:
-                fn = build_fn(options.filename)
-            else: #not json? plz supply an ext
-                if options.ext:
-                    fn = build_fn(options.filename, ext=options.ext)
-                else: 
-                    sys.stderr.write("Error: didn't choose JSON? please supply a filename extension.")
-                    sys.exit(1)
-
-            # build fnp from fp and fn
-            if options.dirpath:
-                fpn = build_fpn(options.dirpath, fn)
-            else:
-                fpn = fn
-
-            save(fpn, d)
-        else:
-            # don't specify a filename?
-            # so what, redirect to a file
-            print(d)
-
-        sys.exit(0)
-    else:
-        #--------
-        # what? can't be bothered to supply data to code, try again.
-        parser.print_help()     
-        sys.stderr.write("Error: no data to parse, please supply some.")
-        sys.exit(1)
- 
- 
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
