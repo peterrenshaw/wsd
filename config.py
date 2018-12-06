@@ -29,7 +29,7 @@ FILENAME_DEFAULT = 'data.json'
 STRF_DATE_FMT_YYYYMMMDD = "%Y%b%dT%H:%M.%S"
 DATE_FORMAT_YYYYMMMDD = "YYYYMMMDDTHH:MM.SS"
 DATE_MONTH = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
-DATE_UNIT = ['year', 'month', 'day', 'hour', 'minute', 'second']
+DATE_UNIT = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
 DATE_TIME_STORE = {'year': 1970, 'month': 1, 'day': 1, 'hour':0, 'minute':0, 'second':0.0}
 STRF_DATE_FMT_DEFAULT = "%Y%M%dT%H:%M.%S"
 

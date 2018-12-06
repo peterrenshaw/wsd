@@ -101,12 +101,9 @@ def main():
 
     if options.start and options.end and options.unit and options.interval:
         # break down dt from string input
-        dts = ex_dt(options.start)
-        dte = ex_dt(options.end)
-
         # create start date, end date
-        start = dt_new_date(dts)
-        end =  dt_new_date(dte)
+        start = dt_new_date(ex_dt(options.start))
+        end =  dt_new_date(ex_dt(options.end))
 
         # create a new datetime delta OR fail
         d = dt_new_delta(options.interval, options.unit)

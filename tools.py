@@ -62,22 +62,16 @@ def dt_new_delta(interval, unit):
                                days=day,
                                weeks=week) 
 
-        #print("delta=<{}>".format(d))
+        print("delta=<{}>".format(d))
         return d
     else:
         sys.stderr.write("\nError: dt_new_delta did not supply an interval <{}>\n".format(interval))
         sys.exit(1)
 def dt_new_date(data):
     """given dict of date, build a new date"""
-    # create new datetime from date dictionary
-    # TODO error handling on creating date
-    dt = datetime.datetime(data['year'],
-                           data['month'],
-                           data['day'],
-                           data['hour'],
-                           data['minute'],
-                           data['second'])
-    return dt
+    print("data=<{}>".format(data))
+    dt = datetime.datetime(data['year'],data['month'],data['day'],data['hour'],data['minute'],data['second'])
+
 def is_dt_fmt(dt, dt_format=DATE_FORMAT_YYYYMMMDD):
     """is supplied date in date format?"""
     return True
@@ -108,7 +102,7 @@ def lst2int(data, start, end):
         sys.stderr.write("\nWarning: lst2int has no valid input data\n")
 def ex_dt(dt_str):
     """decomposition: extract date from string"""
-    dtd = {}
+    dtd={}
     if is_dt_fmt(dt_str):
         # yyyymmmddThh:mm.ss 
         # 123456789012345678
@@ -116,7 +110,6 @@ def ex_dt(dt_str):
         # YEAR
         year = lst2int(dt_str, 0, 4)
         if year: dtd['year'] = year
-       
 
         # MONTH
         # convert string MMM to integer 00
@@ -142,6 +135,7 @@ def ex_dt(dt_str):
         if second: dtd['second'] = second
         else: dtd['second'] = 0
 
+        print("dtd=<{}>".format(dtd))
         return dtd 
     else:
         return dtd

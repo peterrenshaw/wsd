@@ -56,7 +56,7 @@
     LIN_HOME=/home/$LI_USER/code
     MAC_USER=pr
     MAC_HOME=/Users/$MAC_USER/work/code
-    CODEDIR='py/wsd/wsd'
+    CODEDIR='py/wsd'
     #
     # build filepath, machine dependent
     #

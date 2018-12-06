@@ -9,7 +9,20 @@ TODO
         how to show data values
 * auto install of latest version of python requests 
 
+2018DEC06
+* back to work on d3, generate some time based data and graph the axis.
+
 2018DEC05
+* reduced complexity by breaking tools into smaller pieces
+
+```
+  generate.py (lots of switches, 2 different functions)
+      |
+      V
+  generate/se.py   (generate start to end datetimes) DONE
+  generate/si.py   (generate start with intervals) TODO
+``` 
+
 * add tools.dt_new_date
   read the date dictionary, build the date, return
   no error handling (yet)
