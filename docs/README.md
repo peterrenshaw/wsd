@@ -11,6 +11,8 @@ TODO
 * auto install of latest version of python requests 
 
 2018DEC11
+* added make file for quicker build and clean.
+
 * found defect in tools.dt_new_date, forgot to return
 
 2018DEC06
