@@ -5,15 +5,15 @@
 BUGS
 
 TODO: read/revise code again for simplicity.
+  
 
-
-* 2018DEC11 END
+* -------- 2018DEC11 END  --------
 
   located defect in tools.dt_new_date, forgot to return in function.
   added debug flags in functions for faster diagnosis. 
 
 
-* 2018DEC06 START
+*  -------- 2018DEC06 START -------- 
 
 abstract: problems with unit selection with recognition on internal keys in dict.
 
@@ -21,7 +21,7 @@ abstract: problems with unit selection with recognition on internal keys in dict
 
 ```
 
-    ./se.py -s "2018DEC05" -e "2018DEC06" -i 4 -u hour
+    ./se.py -s "2018DEC05" -e "2018DEC06" -i 4 -u h 
 
 ```
 

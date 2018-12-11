@@ -24,7 +24,7 @@ from optparse import OptionParser
 
 from config import IS_DEBUG
 from config import DATE_MONTH
-from config import DATE_UNIT_DT
+from config import DATE_UNIT
 from config import DATE_FORMAT_YYYYMMMDD
 from config import STRF_DATE_FMT_YYYYMMMDD
 from config import DATE_TIME_STORE
@@ -153,7 +153,7 @@ def ex_dt(dt_str, is_debug=IS_DEBUG):
         sys.stderr.write("\nError: ex_dt cannot break down supplied date <{}>\n".format(dtd))
         sys.exit(1)
 
-def is_unit(unit, units=DATE_UNIT_DT):
+def is_unit(unit, units=DATE_UNIT):
     """is the datetime unit found in the datetime definition?"""
     if unit:
         if unit.lower() in units:
