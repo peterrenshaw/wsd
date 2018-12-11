@@ -4,7 +4,16 @@
 
 BUGS
 
-* 2018DEC06
+TODO: read/revise code again for simplicity.
+
+
+* 2018DEC11 END
+
+  located defect in tools.dt_new_date, forgot to return in function.
+  added debug flags in functions for faster diagnosis. 
+
+
+* 2018DEC06 START
 
 abstract: problems with unit selection with recognition on internal keys in dict.
 

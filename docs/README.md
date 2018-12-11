@@ -4,10 +4,14 @@
 
 
 TODO
+* revise code in tools to simplify
 * cron: document 
 * d3:   work out axes
         how to show data values
 * auto install of latest version of python requests 
+
+2018DEC11
+* found defect in tools.dt_new_date, forgot to return
 
 2018DEC06
 * back to work on d3, generate some time based data and graph the axis.
