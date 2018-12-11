@@ -67,6 +67,7 @@ from tools import dt_new_date
 from tools import dt_new_delta
 
 
+from config import IS_DEBUG
 from config import FILENAME_DEFAULT
 from config import STRF_DATE_FMT_DEFAULT
 
@@ -96,7 +97,16 @@ def main():
     parser.add_option("-j", "--json",  dest="json",
                                        action="store_true",
                                        help="convert data to JSON format")
+    parser.add_option("-d", "--debug", dest="debug",
+                                       action="store_true",
+                                       help="display debug messages")
     options, args = parser.parse_args()
+
+   
+    if options.debug:
+        is_debug = True
+    else:
+        is_debug = IS_DEBUG
 
 
     if options.start and options.end and options.unit and options.interval:
@@ -108,6 +118,11 @@ def main():
         # create a new datetime delta OR fail
         d = dt_new_delta(options.interval, options.unit)
 
+        if is_debug:
+            print("start dt={}".format(start))
+            print("end   dt={}".format(end))
+            print("d     dt={}".format(d))
+
         # formatting output OR use option default?
         if options.format:
             dtf = options.format
@@ -117,6 +132,9 @@ def main():
         # store result, set var for current date time
         t = []
         cdt = start
+        if is_debug:
+            print("cdt   dt={}".format(cdt))
+            print("cdt<=end {}".format(cdt <= end))
 
         # loop incrementing DELTA and add to time
         # break on current datetime <= end time

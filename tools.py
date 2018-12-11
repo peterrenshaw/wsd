@@ -22,8 +22,9 @@ from ast import literal_eval
 from optparse import OptionParser
 
 
-from config import DATE_UNIT
+from config import IS_DEBUG
 from config import DATE_MONTH
+from config import DATE_UNIT_DT
 from config import DATE_FORMAT_YYYYMMMDD
 from config import STRF_DATE_FMT_YYYYMMMDD
 from config import DATE_TIME_STORE
@@ -32,7 +33,7 @@ from config import DATE_TIME_STORE
 #--------
 # description: tools to decompose strings and build dates 
 #--------
-def dt_new_delta(interval, unit):
+def dt_new_delta(interval, unit, is_debug=IS_DEBUG):
     """create a new datetime delta"""
     if interval:       
         week = 0
@@ -62,30 +63,34 @@ def dt_new_delta(interval, unit):
                                days=day,
                                weeks=week) 
 
-        print("delta=<{}>".format(d))
+        if is_debug: 
+            print("dt_new_delta: delta=<{}>".format(d))
         return d
     else:
         sys.stderr.write("\nError: dt_new_delta did not supply an interval <{}>\n".format(interval))
         sys.exit(1)
-def dt_new_date(data):
+def dt_new_date(data, is_debug=IS_DEBUG):
     """given dict of date, build a new date"""
-    print("data=<{}>".format(data))
+    if is_debug:
+        print("dt_new_date: data=<{}>".format(data))
     dt = datetime.datetime(data['year'],data['month'],data['day'],data['hour'],data['minute'],data['second'])
-
+    return  dt
 def is_dt_fmt(dt, dt_format=DATE_FORMAT_YYYYMMMDD):
     """is supplied date in date format?"""
     return True
-def mmm2num(mmm, months=DATE_MONTH):
+def mmm2num(mmm, months=DATE_MONTH, is_debug=IS_DEBUG):
     """convert str MMM/mmm/Mmm to month index"""
     if mmm:
         m = mmm.upper()
         if m in months:
             return months.index(m) + 1
         else:
-            sys.stderr.write("\nWarning: mmm2num Could not find mmm <{}> in {}\n".format(mmm, months))
+            if is_debug: 
+                sys.stderr.write("\nWarning: mmm2num Could not find mmm <{}> in {}\n".format(mmm, months))
     else:
-        sys.stderr.write("\nWarning: mmm2num input failure. Could not find mmm <{}>\n".format(mmm))
-def lst2int(data, start, end):
+        if is_debug: 
+            sys.stderr.write("\nWarning: mmm2num input failure. Could not find mmm <{}>\n".format(mmm))
+def lst2int(data, start, end, is_debug=IS_DEBUG):
     """extract list data, convert to integer"""
     if data:
         len_d = len(data)
@@ -95,14 +100,20 @@ def lst2int(data, start, end):
                 d = data[start:end]
                 return int(d)
             else:
-                sys.stderr.write("\nWarning: lst2int start and end selection invalid start <{}> end <{}>\n".format(start, end))
+                if is_debug: 
+                    sys.stderr.write("\nWarning: lst2int start and end selection invalid start <{}> end <{}>\n".format(start, end))
         else:
-            sys.stderr.write("\nWarning: lst2int start<{}> and end<{}> not inside len<{}>\n".format(start, end, len_d))
+            if is_debug: 
+                sys.stderr.write("\nWarning: lst2int start<{}> and end<{}> not inside len<{}>\n".format(start, end, len_d))
     else:
         sys.stderr.write("\nWarning: lst2int has no valid input data\n")
-def ex_dt(dt_str):
+def ex_dt(dt_str, is_debug=IS_DEBUG):
     """decomposition: extract date from string"""
     dtd={}
+    if is_debug:
+        print("ex_dt = {}".format(dt_str))
+        print("is_dt_fmt({})={}".format(dt_str, is_dt_fmt(dt_str)))
+
     if is_dt_fmt(dt_str):
         # yyyymmmddThh:mm.ss 
         # 123456789012345678
@@ -135,12 +146,15 @@ def ex_dt(dt_str):
         if second: dtd['second'] = second
         else: dtd['second'] = 0
 
-        print("dtd=<{}>".format(dtd))
+        if is_debug:
+            print("dtd=<{}>".format(dtd))
         return dtd 
     else:
-        return dtd
-def is_unit(unit, units=DATE_UNIT):
-    """is the datetime unit found in definition?"""
+        sys.stderr.write("\nError: ex_dt cannot break down supplied date <{}>\n".format(dtd))
+        sys.exit(1)
+
+def is_unit(unit, units=DATE_UNIT_DT):
+    """is the datetime unit found in the datetime definition?"""
     if unit:
         if unit.lower() in units:
             return True

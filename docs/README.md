@@ -12,6 +12,15 @@ TODO
 2018DEC06
 * back to work on d3, generate some time based data and graph the axis.
 
+* bug, see docs/BUGS.md
+
+
+```
+   ./se.py -s '2018DEC04' -e '2018DEC05' -i 1 -u h -j
+
+```
+
+
 2018DEC05
 * reduced complexity by breaking tools into smaller pieces
 

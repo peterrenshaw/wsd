@@ -14,6 +14,8 @@
 # uses: ast <https://docs.python.org/3.5/library/ast.html>
 #========
 
+#--------- debug flag ---------
+IS_DEBUG = False
 
 #--------- file config ---------
 PROG_NAME = "WEATHER STATION DATA (WSD)"
@@ -29,6 +31,9 @@ FILENAME_DEFAULT = 'data.json'
 STRF_DATE_FMT_YYYYMMMDD = "%Y%b%dT%H:%M.%S"
 DATE_FORMAT_YYYYMMMDD = "YYYYMMMDDTHH:MM.SS"
 DATE_MONTH = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+# datetime: create a date with minimum Year, month, day
+#           define date with year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None
+# <https://docs.python.org/3/library/datetime.html?highlight=datetime.timedelta#datetime.datetime>
 DATE_UNIT = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
 DATE_TIME_STORE = {'year': 1970, 'month': 1, 'day': 1, 'hour':0, 'minute':0, 'second':0.0}
 STRF_DATE_FMT_DEFAULT = "%Y%M%dT%H:%M.%S"
